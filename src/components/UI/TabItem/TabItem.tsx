@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyledTabItem, StyledSpan } from './TabItem.styles.ts';
-const TabItem: React.FC = () => {
+import { TabItemProps } from './TabItem.types.ts';
+const TabItem: React.FC<TabItemProps> = ({ active = false, title = '' }) => {
   return (
-    <StyledTabItem className='tab-item'>
-      <StyledSpan>ahmad</StyledSpan>
-      <StyledSpan>↓</StyledSpan>
+    <StyledTabItem $active={active}>
+      <StyledSpan $active={active}>{title}</StyledSpan>
+      {active && <StyledSpan $active={active}>↓</StyledSpan>}
     </StyledTabItem>
   );
 };

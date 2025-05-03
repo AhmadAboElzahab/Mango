@@ -8,26 +8,31 @@ import {
   createMemoryHistory,
 } from '@tanstack/react-router';
 
-// Create route tree
 const rootRoute = createRootRoute();
-
-const storyRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/',
-  component: () => <Header Links={[{ to: '/', label: 'Home' }]} />,
-});
-
-const routeTree = rootRoute.addChildren([storyRoute]);
-
-const router = createRouter({
-  routeTree,
-  history: createMemoryHistory(),
-});
 
 const meta: Meta<typeof Header> = {
   title: 'UI/Header',
   component: Header,
-  decorators: [() => <RouterProvider router={router} />],
+  decorators: [
+    (Story, context) => {
+      const StoryComponent = () => <Story {...context} />;
+
+      const storyRoute = createRoute({
+        getParentRoute: () => rootRoute,
+        path: '/',
+        component: StoryComponent,
+      });
+
+      const routeTree = rootRoute.addChildren([storyRoute]);
+
+      const router = createRouter({
+        routeTree,
+        history: createMemoryHistory(),
+      });
+
+      return <RouterProvider router={router} />;
+    },
+  ],
 };
 
 export default meta;
@@ -39,6 +44,7 @@ export const Default: Story = {
     Links: [
       { to: '/', label: 'Home' },
       { to: '/about', label: 'About' },
+      { to: '/contact', label: 'Contact' },
     ],
   },
 };

@@ -3,6 +3,8 @@ export const StyledTabsBar = styled.div`
   clip-path: inset(-3px 0px 0px);
   background-color: rgba(0, 0, 0, 0.1);
   transition: width 300ms ease-in-out;
+  display: flex;
+  flex-direction: row;
   height: 32px;
   border-top-right-radius: 6px;
   position: relative;
