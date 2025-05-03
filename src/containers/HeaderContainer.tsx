@@ -12,13 +12,6 @@ export default function HeaderContainer() {
         ]}
       />
       <TabsBar />
-
-      <div
-        style={{
-          backgroundColor: 'white',
-          height: '400px',
-        }}
-      ></div>
     </div>
   );
 }
