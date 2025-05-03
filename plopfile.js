@@ -40,6 +40,11 @@ export default function (plop) {
         path: 'src/components/{{path}}/{{pascalCase name}}/index.ts',
         templateFile: 'plop-templates/component/index.ts.hbs',
       },
+      {
+        type: 'add',
+        path: 'src/components/{{path}}/{{pascalCase name}}/{{pascalCase name}}.types.ts',
+        templateFile: 'plop-templates/component/Component.types.ts.hbs',
+      },
     ],
   });
 }

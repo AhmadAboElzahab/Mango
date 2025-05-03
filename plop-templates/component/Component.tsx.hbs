@@ -1,5 +1,8 @@
-import React from 'react'; import './{{pascalCase name}}.styles.ts'; const
-{{pascalCase name}}: React.FC = () => { return (
+import React from 'react';
+ import './{{pascalCase name}}.styles.ts';
+ import { {{pascalCase name}}Props } from './{{pascalCase name}}.types';
+ 
+const {{pascalCase name}}: React.FC<{{pascalCase name}}Props> = () => { return (
 <div className='{{kebabCase name}}'>
   <h1>{{pascalCase name}}</h1>
 </div>
