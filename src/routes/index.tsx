@@ -14,20 +14,6 @@ function Index() {
           </div>
           <span className='mt-2 text-lg font-medium'>Maids</span>
         </Link>
-
-        <Link to='/drivers' className='flex flex-col items-center'>
-          <div className='w-24 h-24 bg-green-500 rounded-full flex items-center justify-center'>
-            <span className='text-3xl text-white'>🚗</span>
-          </div>
-          <span className='mt-2 text-lg font-medium'>Drivers</span>
-        </Link>
-
-        <Link to='/nanies' className='flex flex-col items-center'>
-          <div className='w-24 h-24 bg-purple-500 rounded-full flex items-center justify-center'>
-            <span className='text-3xl text-white'>👶</span>
-          </div>
-          <span className='mt-2 text-lg font-medium'>Nanies</span>
-        </Link>
       </div>
     </div>
   );
