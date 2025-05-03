@@ -47,4 +47,41 @@ export default function (plop) {
       },
     ],
   });
+  plop.setGenerator('container', {
+    description: 'Generate a new React container with folder structure',
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Container name (e.g., LoginContainer, UserProfileContainer)',
+      },
+      {
+        type: 'input',
+        name: 'path',
+        message: 'Container path (e.g., Auth, Dashboard, User, etc.)',
+      },
+    ],
+    actions: [
+      {
+        type: 'add',
+        path: 'src/containers/{{path}}/{{pascalCase name}}/{{pascalCase name}}.tsx',
+        templateFile: 'plop-templates/container/Container.tsx.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/containers/{{path}}/{{pascalCase name}}/{{pascalCase name}}.test.tsx',
+        templateFile: 'plop-templates/container/Container.test.tsx.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/containers/{{path}}/{{pascalCase name}}/index.ts',
+        templateFile: 'plop-templates/container/index.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/containers/{{path}}/{{pascalCase name}}/{{pascalCase name}}.types.ts',
+        templateFile: 'plop-templates/container/Container.types.ts.hbs',
+      },
+    ],
+  });
 }
