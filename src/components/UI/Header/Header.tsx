@@ -1,14 +1,7 @@
-// src/components/Header/Header.tsx
 import React from 'react';
 
 import { HeaderWrapper, StyledLink } from './Header.styles';
-
-interface HeaderProps {
-  Links: Array<{
-    to: string;
-    label: string;
-  }>;
-}
+import { HeaderProps } from './Header.types';
 
 const Header: React.FC<HeaderProps> = ({ Links }) => (
   <HeaderWrapper>
