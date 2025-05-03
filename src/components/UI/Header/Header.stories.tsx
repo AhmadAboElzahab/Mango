@@ -1,12 +1,13 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Header from './Header';
 import {
-  RouterProvider,
+  createMemoryHistory,
   createRootRoute,
   createRoute,
   createRouter,
-  createMemoryHistory,
+  RouterProvider,
 } from '@tanstack/react-router';
+
+import Header from './Header';
 
 const rootRoute = createRootRoute();
 

@@ -1,5 +1,6 @@
 // src/components/Header/Header.tsx
 import React from 'react';
+
 import { HeaderWrapper, StyledLink } from './Header.styles';
 
 interface HeaderProps {

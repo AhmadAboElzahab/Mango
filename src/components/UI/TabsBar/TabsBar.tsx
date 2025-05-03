@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyledTabsBar } from './TabsBar.styles.ts';
+
 import TabItem from '../TabItem';
+import { StyledTabsBar } from './TabsBar.styles.ts';
 const TabsBar: React.FC = () => {
   const tabs = [
     {

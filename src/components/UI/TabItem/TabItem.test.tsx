@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import TabItem from './TabItem';
 import { describe, expect, it, vi } from 'vitest';
+
+import TabItem from './TabItem';
 
 describe('TabItem', () => {
   it('renders the component', () => {

@@ -1,5 +1,7 @@
-import React from 'react';
 import './TextField.styles.ts';
+
+import React from 'react';
+
 import { TextFieldProps } from './TextField.types';
 
 const TextField: React.FC<TextFieldProps> = () => {

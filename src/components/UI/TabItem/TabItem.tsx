@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyledTabItem, StyledSpan } from './TabItem.styles.ts';
+
+import { StyledSpan,StyledTabItem } from './TabItem.styles.ts';
 import { TabItemProps } from './TabItem.types.ts';
 const TabItem: React.FC<TabItemProps> = ({ active = false, title = '' }) => {
   return (
