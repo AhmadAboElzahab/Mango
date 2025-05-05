@@ -6,6 +6,7 @@ export function useAuth() {
   const router = useRouter();
 
   const user = useAuthStore((s) => s.user);
+  const token = useAuthStore((s) => s.user?.token);
   const setUser = useAuthStore((s) => s.setUser);
   const clearUser = useAuthStore((s) => s.logout);
 
@@ -21,6 +22,7 @@ export function useAuth() {
 
   return {
     user,
+    token,
     isAuthenticated: !!user?.token,
     login,
     logout,
