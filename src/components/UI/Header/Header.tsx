@@ -2,8 +2,9 @@ import React from 'react';
 
 import { HeaderWrapper, StyledLink } from './Header.styles';
 import { HeaderProps } from './Header.types';
+import Button from 'components/Input/Button';
 
-const Header: React.FC<HeaderProps> = ({ Links }) => (
+const Header: React.FC<HeaderProps> = ({ Links, onLogout }) => (
   <HeaderWrapper>
     <div style={{ display: 'flex', alignItems: 'center', columnGap: '0.5rem' }}>
       <p
@@ -21,7 +22,9 @@ const Header: React.FC<HeaderProps> = ({ Links }) => (
         </StyledLink>
       ))}
     </div>
-    <div>ahmad</div>
+    <Button variant='danger' onClick={onLogout}>
+      ahmad
+    </Button>
   </HeaderWrapper>
 );
 

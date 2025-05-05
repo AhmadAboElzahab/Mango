@@ -3,4 +3,5 @@ export interface HeaderProps {
     to: string;
     label: string;
   }>;
+  onLogout?: () => void;
 }
