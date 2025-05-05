@@ -8,5 +8,5 @@ export const Route = createFileRoute('/_data/drivers/')({
 });
 
 function RouteComponent() {
-  return <div></div>;
+  return <div>driver</div>;
 }

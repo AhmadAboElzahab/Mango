@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ Links, onLogout }) => (
       ))}
     </div>
     <Button variant='danger' onClick={onLogout}>
-      ahmad
+      log out
     </Button>
   </HeaderWrapper>
 );
