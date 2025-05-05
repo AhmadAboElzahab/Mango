@@ -14,7 +14,11 @@ function FieldInfo({ field }: { field: AnyFieldApi }) {
   return (
     <>
       {field.state.meta.isTouched && !field.state.meta.isValid && (
-        <ErrorMessage>{field.state.meta.errors.join(', ')}</ErrorMessage>
+        <ul style={{ color: 'red', paddingLeft: '1em' }}>
+          {field.state.meta.errors.map((error: any, idx: number) => (
+            <li key={idx}>{error.message}</li>
+          ))}
+        </ul>
       )}
     </>
   );
