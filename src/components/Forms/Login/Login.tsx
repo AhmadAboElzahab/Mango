@@ -1,14 +1,9 @@
+import { AnyFieldApi, useForm } from '@tanstack/react-form';
 import React from 'react';
-import { useForm, AnyFieldApi } from '@tanstack/react-form';
-import { loginSchema, LoginFormProps } from './Login.types';
-import {
-  FormWrapper,
-  StyledInput,
-  StyledLabel,
-  StyledButton,
-  FieldWrapper,
-  ErrorMessage,
-} from './Login.styles';
+import { loginSchema } from 'types/auth';
+
+import { FieldWrapper, FormWrapper, StyledButton, StyledInput, StyledLabel } from './Login.styles';
+import { LoginFormProps } from './Login.types';
 
 function FieldInfo({ field }: { field: AnyFieldApi }) {
   return (
@@ -45,9 +40,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
         form.handleSubmit();
       }}
     >
-      <form.Field
-        name='email'
-        children={(field) => (
+      <form.Field name='email'>
+        {(field) => (
           <FieldWrapper>
             <StyledLabel htmlFor={field.name}>Email</StyledLabel>
             <StyledInput
@@ -63,11 +57,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
             <FieldInfo field={field} />
           </FieldWrapper>
         )}
-      />
-
-      <form.Field
-        name='password'
-        children={(field) => (
+      </form.Field>
+      <form.Field name='password'>
+        {(field) => (
           <FieldWrapper>
             <StyledLabel htmlFor={field.name}>Password</StyledLabel>
             <StyledInput
@@ -83,7 +75,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
             <FieldInfo field={field} />
           </FieldWrapper>
         )}
-      />
+      </form.Field>
 
       <StyledButton type='submit' disabled={form.state.isSubmitting}>
         Login

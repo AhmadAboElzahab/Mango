@@ -1,6 +1,5 @@
-import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 
-import Header from '../../components/UI/Header';
 import HeaderContainer from '../../containers/HeaderContainer';
 
 export const Route = createFileRoute('/_data')({

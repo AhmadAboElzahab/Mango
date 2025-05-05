@@ -1,13 +1,13 @@
 import './index.css';
 
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { routeTree } from './routeTree.gen';
-import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './core/services/clients/queryClient';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { routeTree } from './routeTree.gen';
 
 const router = createRouter({ routeTree });
 

@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from '@storybook/react';
 
-import TabItem from "./TabItem";
+import TabItem from './TabItem';
 
 const meta: Meta<typeof TabItem> = {
-  title: "UI/TabItem",
+  title: 'UI/TabItem',
   component: TabItem,
 };
 

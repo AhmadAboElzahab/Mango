@@ -1,6 +1,7 @@
 import React from 'react';
+import { LoginValues } from 'types/auth';
+
 import LoginForm from '../../../components/Forms/Login/Login';
-import { LoginValues } from '../../../components/Forms/Login/Login.types';
 import { useLoginMutation } from '../../../core/services/auth.service';
 
 const LoginContainer: React.FC = () => {
@@ -9,7 +10,7 @@ const LoginContainer: React.FC = () => {
   const handleLoginSubmit = async (values: LoginValues) => {
     login(values);
   };
-
+  console.log('LoginContainer', data, isPending);
   return <LoginForm onSubmit={handleLoginSubmit} />;
 };
 

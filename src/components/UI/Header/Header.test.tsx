@@ -1,6 +1,7 @@
+import '@testing-library/jest-dom';
+
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import '@testing-library/jest-dom';
 
 import Header from './Header';
 import { type HeaderProps } from './Header.types';

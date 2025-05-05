@@ -1,8 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react";
-import Login from "./Login";
+import { Meta, StoryObj } from '@storybook/react';
+
+import Login from './Login';
 
 const meta: Meta<typeof Login> = {
-  title: "Forms/Login",
+  title: 'Forms/Login',
   component: Login,
 };
 

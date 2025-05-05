@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { LoginValues } from 'types/auth';
 const httpClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
@@ -22,43 +22,12 @@ export interface LoginDto {
   password: string;
 }
 
-export interface VerifyLoginDto {
-  email: string;
-  otp: string;
-}
-
 export interface LoginResponse {
   message: string;
   token: string;
 }
 
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  photo: null;
-  status: 'active' | 'inactive';
-  department_id: number;
-  position_id: number;
-  department: {
-    id: number;
-    name: string;
-  };
-  position: {
-    id: number;
-    name: string;
-  };
-  roles: { id: number; name: string }[];
-}
-
-export interface VerifyLoginResponse {
-  user: User;
-  token: string;
-  permissions: string[];
-  google_calendar_token: null | string;
-}
-
-export async function login(data: LoginDto): Promise<LoginResponse> {
+export async function login(data: LoginValues): Promise<LoginResponse> {
   const response = await httpClient.post('/api/auth/signin', data);
   return response.data;
 }
