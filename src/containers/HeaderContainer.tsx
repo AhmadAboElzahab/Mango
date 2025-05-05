@@ -11,6 +11,7 @@ export default function HeaderContainer() {
           { to: '/nanies', label: 'nanies' },
         ]}
       />
+
       <TabsBar />
     </div>
   );

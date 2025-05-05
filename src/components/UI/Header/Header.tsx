@@ -5,20 +5,23 @@ import { HeaderProps } from './Header.types';
 
 const Header: React.FC<HeaderProps> = ({ Links }) => (
   <HeaderWrapper>
-    <p
-      style={{
-        minWidth: '60px',
-        color: 'white',
-        fontFamily: 'sans-serif',
-      }}
-    >
-      logo
-    </p>
-    {Links.map((link: { to: string; label: string }, index: number) => (
-      <StyledLink key={index} to={link.to}>
-        {link.label}
-      </StyledLink>
-    ))}
+    <div style={{ display: 'flex', alignItems: 'center', columnGap: '0.5rem' }}>
+      <p
+        style={{
+          minWidth: '60px',
+          color: 'white',
+          fontFamily: 'sans-serif',
+        }}
+      >
+        logo
+      </p>
+      {Links.map((link: { to: string; label: string }, index: number) => (
+        <StyledLink key={index} to={link.to}>
+          {link.label}
+        </StyledLink>
+      ))}
+    </div>
+    <div>ahmad</div>
   </HeaderWrapper>
 );
 

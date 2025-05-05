@@ -1,8 +1,16 @@
-import { createFileRoute, Outlet } from '@tanstack/react-router';
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 
 import HeaderContainer from '../../containers/HeaderContainer';
+import { useAuthStore } from 'store/auth.store';
 
 export const Route = createFileRoute('/_data')({
+  loader: () => {},
+  beforeLoad: () => {
+    const user = useAuthStore.getState().user;
+    if (!user?.token) {
+      throw redirect({ to: '/auth/login' });
+    }
+  },
   component: PathlessLayoutComponent,
 });
 
@@ -14,7 +22,7 @@ function PathlessLayoutComponent() {
       <div
         style={{
           backgroundColor: 'white',
-          height: '400px',
+          height: '100%',
           flexGrow: 1,
         }}
       >

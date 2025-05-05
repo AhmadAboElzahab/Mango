@@ -1,6 +1,13 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute, Link, redirect } from '@tanstack/react-router';
+import { useAuthStore } from 'store/auth.store';
 
 export const Route = createFileRoute('/')({
+  loader: () => {
+    const user = useAuthStore.getState().user;
+    if (!user?.token) {
+      throw redirect({ to: '/auth/login' });
+    }
+  },
   component: Index,
 });
 
