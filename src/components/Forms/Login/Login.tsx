@@ -1,37 +1,91 @@
 import React from 'react';
-import { StyledForm, StyledInput, StyledButton } from './Login.styles';
-import { LoginProps } from './Login.types';
+import { useForm, AnyFieldApi } from '@tanstack/react-form';
+import { loginSchema, LoginFormProps } from './Login.types';
+import {
+  FormWrapper,
+  StyledInput,
+  StyledLabel,
+  StyledButton,
+  FieldWrapper,
+  ErrorMessage,
+} from './Login.styles';
 
-export const LoginForm: React.FC<LoginProps> = ({ form }) => {
+function FieldInfo({ field }: { field: AnyFieldApi }) {
   return (
-    <StyledForm
+    <>
+      {field.state.meta.isTouched && !field.state.meta.isValid && (
+        <ErrorMessage>{field.state.meta.errors.join(', ')}</ErrorMessage>
+      )}
+    </>
+  );
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+  const form = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    validators: {
+      onSubmit: loginSchema,
+    },
+    onSubmit: async ({ value }) => {
+      await onSubmit(value);
+    },
+  });
+
+  return (
+    <FormWrapper
       onSubmit={(e) => {
         e.preventDefault();
         form.handleSubmit();
       }}
     >
-      <label>Email</label>
-      <form.Field name='email'>
-        {(field) => (
-          <StyledInput
-            value={field.state.value as string}
-            onChange={(e) => field.handleChange(e.target.value)}
-          />
+      <form.Field
+        name='email'
+        children={(field) => (
+          <FieldWrapper>
+            <StyledLabel htmlFor={field.name}>Email</StyledLabel>
+            <StyledInput
+              id={field.name}
+              name={field.name}
+              type='email'
+              value={field.state.value}
+              onBlur={field.handleBlur}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                field.handleChange(e.target.value)
+              }
+            />
+            <FieldInfo field={field} />
+          </FieldWrapper>
         )}
-      </form.Field>
+      />
 
-      <label>Password</label>
-      <form.Field name='password'>
-        {(field) => (
-          <StyledInput
-            type='password'
-            value={field.state.value as string}
-            onChange={(e) => field.handleChange(e.target.value)}
-          />
+      <form.Field
+        name='password'
+        children={(field) => (
+          <FieldWrapper>
+            <StyledLabel htmlFor={field.name}>Password</StyledLabel>
+            <StyledInput
+              id={field.name}
+              name={field.name}
+              type='password'
+              value={field.state.value}
+              onBlur={field.handleBlur}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                field.handleChange(e.target.value)
+              }
+            />
+            <FieldInfo field={field} />
+          </FieldWrapper>
         )}
-      </form.Field>
+      />
 
-      <StyledButton type='submit'>Login</StyledButton>
-    </StyledForm>
+      <StyledButton type='submit' disabled={form.state.isSubmitting}>
+        Login
+      </StyledButton>
+    </FormWrapper>
   );
 };
+
+export default LoginForm;

@@ -1,23 +1,14 @@
 import React from 'react';
-import { useForm } from '@tanstack/react-form';
-import { z } from 'zod';
-import { LoginForm } from '../../../components/Forms/Login/Login';
-
-const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
-});
+import LoginForm from '../../../components/Forms/Login/Login';
+import { LoginValues } from '../../../components/Forms/Login/Login.types';
 
 const LoginContainer: React.FC = () => {
-  const form = useForm({
-    defaultValues: { email: '', password: '' },
-    onSubmit: async ({ value }) => {
-      // API call or auth logic here
-      console.log('Login values:', value);
-    },
-  });
+  const handleLoginSubmit = async (values: LoginValues) => {
+    console.log('Form submitted from container:', values);
+    // Call your API, mutate state, etc.
+  };
 
-  return <LoginForm form={form} />;
+  return <LoginForm onSubmit={handleLoginSubmit} />;
 };
 
 export default LoginContainer;

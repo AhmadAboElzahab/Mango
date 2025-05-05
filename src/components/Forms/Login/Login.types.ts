@@ -1,15 +1,11 @@
-// Login.types.ts
-import { useForm } from '@tanstack/react-form';
+import { z } from 'zod';
 
-// Define your form values type explicitly
-export type LoginFormValues = {
-  email: string;
-  password: string;
-};
+export const loginSchema = z.object({
+  email: z.string().email('Invalid email'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+});
 
-// Use the generic parameter in the useForm type
-export type LoginForm = ReturnType<typeof useForm<LoginFormValues>>;
-
-export interface LoginProps {
-  form: LoginForm;
+export type LoginValues = z.infer<typeof loginSchema>;
+export interface LoginFormProps {
+  onSubmit: (values: LoginValues) => Promise<void>;
 }
