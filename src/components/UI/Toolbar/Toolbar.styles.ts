@@ -1,0 +1,19 @@
+import styled from 'styled-components';
+export const StyledToolbar = styled.div`
+  height: 44px;
+  position: relative;
+  z-index: 7;
+  display: flex;
+  left: 0;
+  right: 8px;
+  top: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  background: var(--colors-background-default);
+  -webkit-transform: translateZ(0);
+  background-color: white;
+  font-family: var(--font-family-body);
+  font-weight: 400;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 0 0;
+  border-bottom: #c2c5c8 1px solid;
+`;
