@@ -18,14 +18,21 @@ httpClient.interceptors.request.use(
   },
 );
 
+export interface LoginDto {
+  email: string;
+  password: string;
+}
+
 export interface LoginResponse {
   message: string;
   token: string;
 }
+
 export async function login(data: LoginValues): Promise<LoginResponse> {
   const response = await httpClient.post('/api/auth/signin', data);
   return response.data;
 }
+
 export interface JobsQueryParams {
   page: number;
   pageSize: number;
@@ -46,5 +53,9 @@ export async function getTabs(source: string) {
 
 export async function createTab(source: string) {
   const response = await httpClient.post(`/api/user/${source}/tabs/add`);
+  return response.data;
+}
+export async function getData(source: string) {
+  const response = await httpClient.post(`/api//${source}/tabs/add`);
   return response.data;
 }

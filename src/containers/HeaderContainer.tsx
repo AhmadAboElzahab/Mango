@@ -1,6 +1,5 @@
-import Toolbar from 'components/UI/Toolbar';
 import Header from '../components/UI/Header';
-import TabsBar from '../components/UI/TabsBar';
+
 import { useAuth } from 'hooks/useAuth';
 
 export default function HeaderContainer() {
@@ -17,9 +16,6 @@ export default function HeaderContainer() {
           logout();
         }}
       />
-
-      <TabsBar />
-      <Toolbar />
     </div>
   );
 }
