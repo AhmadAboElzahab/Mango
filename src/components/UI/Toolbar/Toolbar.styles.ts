@@ -4,6 +4,8 @@ export const StyledToolbar = styled.div`
   position: relative;
   z-index: 7;
   display: flex;
+  flex-direction: row;
+  align-items: center;
   left: 0;
   right: 8px;
   top: 0;

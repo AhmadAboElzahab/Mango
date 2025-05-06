@@ -1,14 +1,22 @@
 import './Filter.styles.ts';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import { FilterProps } from './Filter.types';
+import { Popup } from '../Popup/Popup.tsx';
+import { Icon } from 'components/icons/Icon.tsx';
+import { StyledFilterWrapper, StyledLabel } from './Filter.styles.ts';
 
 const Filter: React.FC<FilterProps> = () => {
+  const [open, setOpen] = useState<boolean>(false);
   return (
-    <div className='filter'>
-      <h1>Filter</h1>
-    </div>
+    <StyledFilterWrapper $active={open} onClick={() => setOpen((prev) => !prev)}>
+      <Icon name='Filter' width={16} height={16} fill='#1d1f24' />
+      <StyledLabel>Filter</StyledLabel>
+      <Popup isOpen={open} onClose={() => setOpen(false)}>
+        <div>ahmad</div>
+      </Popup>
+    </StyledFilterWrapper>
   );
 };
 export default Filter;
