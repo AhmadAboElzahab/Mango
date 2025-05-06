@@ -1,8 +1,8 @@
+import Button from 'components/Input/Button';
 import React from 'react';
 
 import { HeaderWrapper, StyledLink } from './Header.styles';
 import { HeaderProps } from './Header.types';
-import Button from 'components/Input/Button';
 
 const Header: React.FC<HeaderProps> = ({ Links, onLogout }) => (
   <HeaderWrapper>

@@ -1,3 +1,1 @@
-export interface ToolbarProps {
- 
-}
+export interface ToolbarProps {}

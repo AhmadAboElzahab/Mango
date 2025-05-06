@@ -1,6 +1,6 @@
-import Header from '../components/UI/Header';
-
 import { useAuth } from 'hooks/useAuth';
+
+import Header from '../components/UI/Header';
 
 export default function HeaderContainer() {
   const { logout } = useAuth();

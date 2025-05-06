@@ -10,16 +10,16 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as AboutImport } from './routes/about'
-import { Route as AuthRouteImport } from './routes/auth/route'
-import { Route as DataRouteImport } from './routes/_data/route'
-import { Route as IndexImport } from './routes/index'
-import { Route as AuthIndexImport } from './routes/auth/index'
-import { Route as AuthLoginImport } from './routes/auth/login'
-import { Route as DataNaniesIndexImport } from './routes/_data/nanies/index'
-import { Route as DataMaidsIndexImport } from './routes/_data/maids/index'
-import { Route as DataDriversIndexImport } from './routes/_data/drivers/index'
+import { Route as rootRoute } from './routes/__root';
+import { Route as AboutImport } from './routes/about';
+import { Route as AuthRouteImport } from './routes/auth/route';
+import { Route as DataRouteImport } from './routes/_data/route';
+import { Route as IndexImport } from './routes/index';
+import { Route as AuthIndexImport } from './routes/auth/index';
+import { Route as AuthLoginImport } from './routes/auth/login';
+import { Route as DataNaniesIndexImport } from './routes/_data/nanies/index';
+import { Route as DataMaidsIndexImport } from './routes/_data/maids/index';
+import { Route as DataDriversIndexImport } from './routes/_data/drivers/index';
 
 // Create/Update Routes
 
@@ -27,195 +27,191 @@ const AboutRoute = AboutImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AuthRouteRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const DataRouteRoute = DataRouteImport.update({
   id: '/_data',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AuthIndexRoute = AuthIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthRouteRoute,
-} as any)
+} as any);
 
 const AuthLoginRoute = AuthLoginImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
-} as any)
+} as any);
 
 const DataNaniesIndexRoute = DataNaniesIndexImport.update({
   id: '/nanies/',
   path: '/nanies/',
   getParentRoute: () => DataRouteRoute,
-} as any)
+} as any);
 
 const DataMaidsIndexRoute = DataMaidsIndexImport.update({
   id: '/maids/',
   path: '/maids/',
   getParentRoute: () => DataRouteRoute,
-} as any)
+} as any);
 
 const DataDriversIndexRoute = DataDriversIndexImport.update({
   id: '/drivers/',
   path: '/drivers/',
   getParentRoute: () => DataRouteRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/_data': {
-      id: '/_data'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof DataRouteImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/_data';
+      path: '';
+      fullPath: '';
+      preLoaderRoute: typeof DataRouteImport;
+      parentRoute: typeof rootRoute;
+    };
     '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/auth';
+      path: '/auth';
+      fullPath: '/auth';
+      preLoaderRoute: typeof AuthRouteImport;
+      parentRoute: typeof rootRoute;
+    };
     '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/about';
+      path: '/about';
+      fullPath: '/about';
+      preLoaderRoute: typeof AboutImport;
+      parentRoute: typeof rootRoute;
+    };
     '/auth/login': {
-      id: '/auth/login'
-      path: '/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthLoginImport
-      parentRoute: typeof AuthRouteImport
-    }
+      id: '/auth/login';
+      path: '/login';
+      fullPath: '/auth/login';
+      preLoaderRoute: typeof AuthLoginImport;
+      parentRoute: typeof AuthRouteImport;
+    };
     '/auth/': {
-      id: '/auth/'
-      path: '/'
-      fullPath: '/auth/'
-      preLoaderRoute: typeof AuthIndexImport
-      parentRoute: typeof AuthRouteImport
-    }
+      id: '/auth/';
+      path: '/';
+      fullPath: '/auth/';
+      preLoaderRoute: typeof AuthIndexImport;
+      parentRoute: typeof AuthRouteImport;
+    };
     '/_data/drivers/': {
-      id: '/_data/drivers/'
-      path: '/drivers'
-      fullPath: '/drivers'
-      preLoaderRoute: typeof DataDriversIndexImport
-      parentRoute: typeof DataRouteImport
-    }
+      id: '/_data/drivers/';
+      path: '/drivers';
+      fullPath: '/drivers';
+      preLoaderRoute: typeof DataDriversIndexImport;
+      parentRoute: typeof DataRouteImport;
+    };
     '/_data/maids/': {
-      id: '/_data/maids/'
-      path: '/maids'
-      fullPath: '/maids'
-      preLoaderRoute: typeof DataMaidsIndexImport
-      parentRoute: typeof DataRouteImport
-    }
+      id: '/_data/maids/';
+      path: '/maids';
+      fullPath: '/maids';
+      preLoaderRoute: typeof DataMaidsIndexImport;
+      parentRoute: typeof DataRouteImport;
+    };
     '/_data/nanies/': {
-      id: '/_data/nanies/'
-      path: '/nanies'
-      fullPath: '/nanies'
-      preLoaderRoute: typeof DataNaniesIndexImport
-      parentRoute: typeof DataRouteImport
-    }
+      id: '/_data/nanies/';
+      path: '/nanies';
+      fullPath: '/nanies';
+      preLoaderRoute: typeof DataNaniesIndexImport;
+      parentRoute: typeof DataRouteImport;
+    };
   }
 }
 
 // Create and export the route tree
 
 interface DataRouteRouteChildren {
-  DataDriversIndexRoute: typeof DataDriversIndexRoute
-  DataMaidsIndexRoute: typeof DataMaidsIndexRoute
-  DataNaniesIndexRoute: typeof DataNaniesIndexRoute
+  DataDriversIndexRoute: typeof DataDriversIndexRoute;
+  DataMaidsIndexRoute: typeof DataMaidsIndexRoute;
+  DataNaniesIndexRoute: typeof DataNaniesIndexRoute;
 }
 
 const DataRouteRouteChildren: DataRouteRouteChildren = {
   DataDriversIndexRoute: DataDriversIndexRoute,
   DataMaidsIndexRoute: DataMaidsIndexRoute,
   DataNaniesIndexRoute: DataNaniesIndexRoute,
-}
+};
 
-const DataRouteRouteWithChildren = DataRouteRoute._addFileChildren(
-  DataRouteRouteChildren,
-)
+const DataRouteRouteWithChildren = DataRouteRoute._addFileChildren(DataRouteRouteChildren);
 
 interface AuthRouteRouteChildren {
-  AuthLoginRoute: typeof AuthLoginRoute
-  AuthIndexRoute: typeof AuthIndexRoute
+  AuthLoginRoute: typeof AuthLoginRoute;
+  AuthIndexRoute: typeof AuthIndexRoute;
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthLoginRoute: AuthLoginRoute,
   AuthIndexRoute: AuthIndexRoute,
-}
+};
 
-const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
-  AuthRouteRouteChildren,
-)
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(AuthRouteRouteChildren);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '': typeof DataRouteRouteWithChildren
-  '/auth': typeof AuthRouteRouteWithChildren
-  '/about': typeof AboutRoute
-  '/auth/login': typeof AuthLoginRoute
-  '/auth/': typeof AuthIndexRoute
-  '/drivers': typeof DataDriversIndexRoute
-  '/maids': typeof DataMaidsIndexRoute
-  '/nanies': typeof DataNaniesIndexRoute
+  '/': typeof IndexRoute;
+  '': typeof DataRouteRouteWithChildren;
+  '/auth': typeof AuthRouteRouteWithChildren;
+  '/about': typeof AboutRoute;
+  '/auth/login': typeof AuthLoginRoute;
+  '/auth/': typeof AuthIndexRoute;
+  '/drivers': typeof DataDriversIndexRoute;
+  '/maids': typeof DataMaidsIndexRoute;
+  '/nanies': typeof DataNaniesIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '': typeof DataRouteRouteWithChildren
-  '/about': typeof AboutRoute
-  '/auth/login': typeof AuthLoginRoute
-  '/auth': typeof AuthIndexRoute
-  '/drivers': typeof DataDriversIndexRoute
-  '/maids': typeof DataMaidsIndexRoute
-  '/nanies': typeof DataNaniesIndexRoute
+  '/': typeof IndexRoute;
+  '': typeof DataRouteRouteWithChildren;
+  '/about': typeof AboutRoute;
+  '/auth/login': typeof AuthLoginRoute;
+  '/auth': typeof AuthIndexRoute;
+  '/drivers': typeof DataDriversIndexRoute;
+  '/maids': typeof DataMaidsIndexRoute;
+  '/nanies': typeof DataNaniesIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/_data': typeof DataRouteRouteWithChildren
-  '/auth': typeof AuthRouteRouteWithChildren
-  '/about': typeof AboutRoute
-  '/auth/login': typeof AuthLoginRoute
-  '/auth/': typeof AuthIndexRoute
-  '/_data/drivers/': typeof DataDriversIndexRoute
-  '/_data/maids/': typeof DataMaidsIndexRoute
-  '/_data/nanies/': typeof DataNaniesIndexRoute
+  __root__: typeof rootRoute;
+  '/': typeof IndexRoute;
+  '/_data': typeof DataRouteRouteWithChildren;
+  '/auth': typeof AuthRouteRouteWithChildren;
+  '/about': typeof AboutRoute;
+  '/auth/login': typeof AuthLoginRoute;
+  '/auth/': typeof AuthIndexRoute;
+  '/_data/drivers/': typeof DataDriversIndexRoute;
+  '/_data/maids/': typeof DataMaidsIndexRoute;
+  '/_data/nanies/': typeof DataNaniesIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/'
     | ''
@@ -225,17 +221,9 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/drivers'
     | '/maids'
-    | '/nanies'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | ''
-    | '/about'
-    | '/auth/login'
-    | '/auth'
-    | '/drivers'
-    | '/maids'
-    | '/nanies'
+    | '/nanies';
+  fileRoutesByTo: FileRoutesByTo;
+  to: '/' | '' | '/about' | '/auth/login' | '/auth' | '/drivers' | '/maids' | '/nanies';
   id:
     | '__root__'
     | '/'
@@ -246,15 +234,15 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/_data/drivers/'
     | '/_data/maids/'
-    | '/_data/nanies/'
-  fileRoutesById: FileRoutesById
+    | '/_data/nanies/';
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  DataRouteRoute: typeof DataRouteRouteWithChildren
-  AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  AboutRoute: typeof AboutRoute
+  IndexRoute: typeof IndexRoute;
+  DataRouteRoute: typeof DataRouteRouteWithChildren;
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren;
+  AboutRoute: typeof AboutRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -262,11 +250,11 @@ const rootRouteChildren: RootRouteChildren = {
   DataRouteRoute: DataRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   AboutRoute: AboutRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {

@@ -1,8 +1,8 @@
 // stores/authStore.ts
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import SecureLS from 'secure-ls';
 import { User } from 'types/user';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 const ls = new SecureLS({ encodingType: 'aes' });
 

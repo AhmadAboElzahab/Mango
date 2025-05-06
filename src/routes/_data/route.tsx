@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import { useAuthStore } from 'store/auth.store';
 
 import HeaderContainer from '../../containers/HeaderContainer';
-import { useAuthStore } from 'store/auth.store';
 
 export const Route = createFileRoute('/_data')({
   loader: () => {},

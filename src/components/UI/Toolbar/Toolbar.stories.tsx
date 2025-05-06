@@ -1,8 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react";
-import Toolbar from "./Toolbar";
+import { Meta, StoryObj } from '@storybook/react';
+
+import Toolbar from './Toolbar';
 
 const meta: Meta<typeof Toolbar> = {
-  title: "UI/Toolbar",
+  title: 'UI/Toolbar',
   component: Toolbar,
 };
 

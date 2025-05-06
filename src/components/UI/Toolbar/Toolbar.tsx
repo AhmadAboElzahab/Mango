@@ -1,6 +1,7 @@
 import React from 'react';
-import { ToolbarProps } from './Toolbar.types';
+
 import { StyledToolbar } from './Toolbar.styles.ts';
+import { ToolbarProps } from './Toolbar.types';
 
 const Toolbar: React.FC<ToolbarProps> = () => {
   return <StyledToolbar>ex</StyledToolbar>;
