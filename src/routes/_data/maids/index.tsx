@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
+import SvgAndroid from 'components/icons/Android';
 import TabsBar from 'components/UI/TabsBar';
 import Toolbar from 'components/UI/Toolbar';
 
@@ -23,7 +24,7 @@ function RouteComponent() {
           flex: 1, // fills the remaining space
         }}
       >
-        maids
+        maids <SvgAndroid />
       </div>
     </div>
   );
