@@ -15,12 +15,14 @@ export const Default: Story = {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <button onClick={() => setOpen(true)}>Open Popup</button>
-        <Popup isOpen={open} onClose={() => setOpen(false)}>
-          <h3>Hello</h3>
-          <p>This is a popup.</p>
-          <button onClick={() => setOpen(false)}>Close</button>
-        </Popup>
+        <div style={{ position: 'relative' }}>
+          <button onClick={() => setOpen(true)}>Open Popup</button>
+          <Popup isOpen={open} onClose={() => setOpen(false)}>
+            <div>
+              <p>This is a reusable popup.</p>
+            </div>
+          </Popup>
+        </div>
       </>
     );
   },

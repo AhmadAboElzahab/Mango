@@ -1,43 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
+// Popup.tsx
+import React, { useEffect } from 'react';
+import ClickAwayListener from 'react-click-away-listener';
 import * as S from './Popup.styles';
 import { PopupProps } from './Popup.types';
 
-export const Popup: React.FC<PopupProps> = ({
-  isOpen,
-  onClose,
-  children,
-  className,
-  portalTarget = document.body,
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isClosing, setIsClosing] = useState(false);
-
+export const Popup: React.FC<PopupProps> = ({ isOpen, onClose, children }) => {
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        setIsClosing(true);
-        setTimeout(onClose, 200);
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
       }
     };
-
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
     }
-
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
+  if (!isOpen) return null;
 
-  if (!isOpen && !isClosing) return null;
-
-  return ReactDOM.createPortal(
-    <S.Overlay isClosing={isClosing}>
-      <S.PopupContainer ref={ref} className={className}>
-        {children}
-      </S.PopupContainer>
-    </S.Overlay>,
-    portalTarget,
+  return (
+    <ClickAwayListener onClickAway={onClose}>
+      <S.PopupWrapper>
+        <S.PopupContainer>{children}</S.PopupContainer>
+      </S.PopupWrapper>
+    </ClickAwayListener>
   );
 };
