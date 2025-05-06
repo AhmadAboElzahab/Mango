@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 export const StyledToolbar = styled.div`
-  height: 44px;
+  max-height: 44px;
+  min-height: 44px;
   position: relative;
   z-index: 7;
   display: flex;
@@ -11,8 +12,8 @@ export const StyledToolbar = styled.div`
   top: 0;
   font-size: inherit;
   white-space: nowrap;
+  padding-left: 12px;
   background: var(--colors-background-default);
-  -webkit-transform: translateZ(0);
   background-color: white;
   font-family: var(--font-family-body);
   font-weight: 400;

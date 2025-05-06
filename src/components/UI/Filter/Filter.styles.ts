@@ -11,7 +11,6 @@ export const StyledFilterWrapper = styled.div<{ $active?: boolean }>`
   background-color: ${({ $active }) => ($active ? '#FEEAB6' : 'none')};
   height: fit-content;
   transition: 0.085s background-color ease-in;
-  box-shadow: ${({ $active }) => ($active ? 'inset 0 0 0 2px rgba(0,0,0,0.1)' : 'none')};
 
   &:hover {
     background-color: ${({ $active }) => ($active ? 'none' : 'rgba(0, 0, 0, 0.05)')};
