@@ -1,13 +1,14 @@
 import axios from 'axios';
-import { useAuth } from 'hooks/useAuth';
+import { useAuthStore } from 'store/auth.store';
 import { LoginValues } from 'types/auth';
 const httpClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
-const { token } = useAuth();
 
 httpClient.interceptors.request.use(
   (config) => {
+    const token = useAuthStore.getState().user?.token; // ✅ Safe
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

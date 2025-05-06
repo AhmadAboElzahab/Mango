@@ -4,9 +4,7 @@ import Toolbar from 'components/UI/Toolbar';
 
 export const Route = createFileRoute('/_data/maids/')({
   component: RouteComponent,
-  loader: () => {
-    console.log('Loading driver data');
-  },
+  loader: () => {},
 });
 function RouteComponent() {
   return (

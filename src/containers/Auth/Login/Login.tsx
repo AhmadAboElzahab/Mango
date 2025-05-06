@@ -10,7 +10,6 @@ const LoginContainer: React.FC = () => {
   const handleLoginSubmit = async (values: LoginValues) => {
     login(values);
   };
-  console.log('LoginContainer', data, isPending);
   return <LoginForm onSubmit={handleLoginSubmit} />;
 };
 
