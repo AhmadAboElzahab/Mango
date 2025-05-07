@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useAuthStore } from 'store/auth.store';
 import { LoginValues } from 'types/auth';
-const httpClient = axios.create({
+export const httpClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
+  withCredentials: true, // ✅ this is critical for CORS
 });
 
 httpClient.interceptors.request.use(
@@ -12,6 +13,8 @@ httpClient.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    config.headers['Content-Type'] = 'application/json';
+
     return config;
   },
   (error) => {
@@ -57,6 +60,10 @@ export async function createTab(source: string) {
   return response.data;
 }
 export async function getData(source: string) {
-  const response = await httpClient.post(`/api//${source}/tabs/add`);
+  const response = await httpClient.post(`/api/${source}/tabs/add`);
+  return response.data;
+}
+export async function getProducts() {
+  const response = await httpClient.get('/api/patients/'); // ✅ uses baseURL
   return response.data;
 }

@@ -1,31 +1,21 @@
 import React from 'react';
-
 import TabItem from '../TabItem';
 import { StyledTabsBar } from './TabsBar.styles.ts';
-const TabsBar: React.FC = () => {
-  const tabs = [
-    {
-      id: 1,
-      name: 'Tab 1',
-      active: true,
-    },
-    {
-      id: 2,
-      name: 'Tab 2',
-      active: false,
-    },
-    {
-      id: 3,
-      name: 'Tab 3',
-      active: false,
-    },
-  ];
+import { TabsBarProps } from './TabsBar.types.ts';
+
+const TabsBar: React.FC<TabsBarProps> = ({ tabs, activeTab, onTabChange }) => {
   return (
     <StyledTabsBar>
       {tabs.map((tab) => (
-        <TabItem key={tab.id} title={tab.name} active={tab.active} />
+        <TabItem
+          key={tab.id}
+          title={tab.tab_name}
+          active={tab.id === activeTab.id}
+          onClick={() => onTabChange(tab)}
+        />
       ))}
     </StyledTabsBar>
   );
 };
+
 export default TabsBar;

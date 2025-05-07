@@ -1,4 +1,5 @@
 export interface TabItemProps {
-  active?: boolean;
-  title?: string;
+  title: string;
+  active: boolean;
+  onClick?: () => void;
 }
