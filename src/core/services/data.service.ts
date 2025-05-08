@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData,useInfiniteQuery } from '@tanstack/react-query';
 
 import { httpClient } from './api.service';
 
@@ -10,16 +10,36 @@ export interface IndexQueryParams {
   columns: any;
 }
 
-export async function getModelIndex(params: IndexQueryParams) {
-  const response = await httpClient.post(`/api/${params.model}/index`, params);
-  return response.data;
-}
+const PAGE_SIZE = 50;
 
-export function useModelIndex(params: IndexQueryParams) {
-  return useQuery({
-    queryKey: ['modelIndex', params.model, params.filters, params.search_term, params.columns],
-    queryFn: () => getModelIndex(params),
-    enabled: !!params.model && params.columns.length > 0,
-    placeholderData: (previousData) => previousData,
+export function useInfiniteModelIndex(params: Omit<IndexQueryParams, 'page' | 'size'>) {
+  return useInfiniteQuery({
+    queryKey: [
+      'modelIndex',
+      params.model,
+      params.tab_id,
+      params.filters,
+      params.search_term,
+      params.columns,
+    ],
+    queryFn: async ({ pageParam = 0 }) => {
+      const response = await httpClient.post(`/api/${params.model}/index`, {
+        ...params,
+        page: pageParam,
+        size: PAGE_SIZE,
+      });
+
+      // ✅ Return both `data` and `meta`
+      return {
+        data: response.data.data,
+        meta: response.data.meta,
+      };
+    },
+    getNextPageParam: (lastPage, allPages) => {
+      const loadedCount = allPages.reduce((acc, p) => acc + p.data.length, 0);
+      return loadedCount < lastPage.meta.totalRowCount ? allPages.length : undefined;
+    },
+    initialPageParam: 0,
+    placeholderData: keepPreviousData,
   });
 }

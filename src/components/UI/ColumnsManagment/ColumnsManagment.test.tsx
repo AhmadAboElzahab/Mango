@@ -1,7 +1,9 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, vi, expect } from 'vitest';
-import ColumnsManagment from './ColumnsManagment';
 import '@testing-library/jest-dom';
+
+import { fireEvent,render, screen } from '@testing-library/react';
+import { describe, expect,it, vi } from 'vitest';
+
+import ColumnsManagment from './ColumnsManagment';
 
 const mockColumns = [
   { field_key: 'name', visible: true, locked: false, order: 0, width: 100 },

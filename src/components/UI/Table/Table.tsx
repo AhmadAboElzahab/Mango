@@ -1,12 +1,7 @@
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  RowSelectionState,
-  useReactTable,
-} from '@tanstack/react-table';
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { generateEditableColumnsFromMeta } from 'core/utils/tableColumnBuilder';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef } from 'react';
 
 import {
   StyledIndexCell,
@@ -16,65 +11,47 @@ import {
   StyledTh,
 } from './Table.styles';
 import { TableProps } from './Table.types';
-const Table: React.FC<TableProps> = ({ data, formFields, activeTabColumns }) => {
-  const [tableData, setTableData] = useState(data);
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
-  const updateRow = (rowIndex: number, field: string, value: any) => {
-    setTableData((prev) => {
-      const updated = [...prev];
-      updated[rowIndex] = { ...updated[rowIndex], [field]: value };
-      return updated;
-    });
-  };
+const Table: React.FC<TableProps & { totalCount: number }> = ({
+  data,
+  formFields,
+  activeTabColumns,
+}) => {
+  const parentRef = useRef<HTMLDivElement>(null);
 
   const columns = useMemo<ColumnDef<any>[]>(
     () => [
       {
         id: 'index',
         header: '#',
-        cell: ({ row }) => {
-          const [isHovered, setIsHovered] = useState(false);
-          const isSelected = row.getIsSelected();
-
-          return (
-            <StyledIndexCell
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              $isSelected={isSelected}
-            >
-              {isHovered || isSelected ? (
-                <input
-                  type='checkbox'
-                  checked={isSelected}
-                  onChange={row.getToggleSelectedHandler()}
-                />
-              ) : (
-                row.index + 1
-              )}
-            </StyledIndexCell>
-          );
-        },
+        cell: ({ row }) => <StyledIndexCell>{row.index + 1}</StyledIndexCell>,
       },
-      ...generateEditableColumnsFromMeta(formFields, activeTabColumns, updateRow),
+      ...generateEditableColumnsFromMeta(formFields, activeTabColumns, () => {}),
     ],
     [formFields, activeTabColumns],
   );
 
   const table = useReactTable({
-    data: tableData,
+    data,
     columns,
-    state: {
-      rowSelection,
-    },
-    onRowSelectionChange: setRowSelection,
-    enableRowSelection: true,
     getCoreRowModel: getCoreRowModel(),
-  
   });
 
+  const rowVirtualizer = useVirtualizer({
+    count: table.getRowModel().rows.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 33,
+    overscan: 10,
+  });
+
+  const virtualRows = rowVirtualizer.getVirtualItems();
+  const totalSize = rowVirtualizer.getTotalSize();
+  const paddingTop = virtualRows.length > 0 ? virtualRows[0].start : 0;
+  const paddingBottom =
+    virtualRows.length > 0 ? totalSize - virtualRows[virtualRows.length - 1].end : 0;
+
   return (
-    <StyledTableWrapper>
+    <StyledTableWrapper ref={parentRef}>
       <StyledTable>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -88,15 +65,18 @@ const Table: React.FC<TableProps> = ({ data, formFields, activeTabColumns }) => 
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <StyledTd key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </StyledTd>
-              ))}
-            </tr>
-          ))}
+          {virtualRows.map((virtualRow) => {
+            const row = table.getRowModel().rows[virtualRow.index];
+            return (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <StyledTd key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </StyledTd>
+                ))}
+              </tr>
+            );
+          })}
         </tbody>
       </StyledTable>
     </StyledTableWrapper>

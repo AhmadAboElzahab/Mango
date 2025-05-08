@@ -22,7 +22,7 @@ function PathlessLayoutComponent() {
       <div
         style={{
           backgroundColor: '#893C75',
-          height: '100%',
+          height: '80%',
           flexGrow: 1,
         }}
       >

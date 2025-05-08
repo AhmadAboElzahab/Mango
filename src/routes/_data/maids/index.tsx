@@ -160,18 +160,18 @@ import { fetchTabs, useTabs } from 'core/services/tabs.service';
 export const Route = createFileRoute('/_data/maids/')({
   loader: () =>
     queryClient.ensureQueryData({
-      queryKey: ['tabs', 'Patient'],
-      queryFn: () => fetchTabs('Patient'),
+      queryKey: ['tabs', 'Maid'],
+      queryFn: () => fetchTabs('Maid'),
     }),
   component: RouteComponent,
 
   // component: () => <DataContainer model='patients' />,
 });
 function RouteComponent() {
-  const { data, isLoading, error } = useTabs('Patient');
+  const { data, isLoading, error } = useTabs('Maid');
 
   if (isLoading) return <div>Loading...</div>;
   if (error || !data) return <div>Error loading tabs</div>;
 
-  return <DataContainer model='patients' tabsData={data} />;
+  return <DataContainer model='maids' tabsData={data} />;
 }

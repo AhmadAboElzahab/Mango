@@ -16,3 +16,32 @@ body {
     sans-serif;
   overscroll-behavior: none;
 }
+:root {
+  --sb-track-color: #dcdcdc;
+  --sb-thumb-color: #a7a7a7;
+  --sb-size: 5px;
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+*::-webkit-scrollbar {
+  width: var(--sb-size);
+  height: var(--sb-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 2px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 2px;
+}
+
+/* For Firefox */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
