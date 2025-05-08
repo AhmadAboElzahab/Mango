@@ -15,7 +15,7 @@ import {
   StyledTableWrapper,
   StyledIndexCell,
 } from './Table.styles';
-const Table: React.FC<TableProps> = ({ data, formFields }) => {
+const Table: React.FC<TableProps> = ({ data, formFields, activeTabColumns }) => {
   const [tableData, setTableData] = useState(data);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
@@ -55,9 +55,9 @@ const Table: React.FC<TableProps> = ({ data, formFields }) => {
           );
         },
       },
-      ...generateEditableColumnsFromMeta(formFields, updateRow),
+      ...generateEditableColumnsFromMeta(formFields, activeTabColumns, updateRow),
     ],
-    [formFields],
+    [formFields, activeTabColumns],
   );
 
   const table = useReactTable({

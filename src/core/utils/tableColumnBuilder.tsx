@@ -1,14 +1,24 @@
 import { ColumnDef } from '@tanstack/react-table';
 import React from 'react';
-import { FormField } from 'types/tabs'; // adjust path if needed
+import { FormField, UserTabColumn } from 'types/tabs'; // adjust path
 
 export function generateEditableColumnsFromMeta<T>(
   formFields: FormField[],
+  tabColumns: UserTabColumn[],
   updateRow: (rowIndex: number, field: string, value: any) => void,
 ): ColumnDef<T>[] {
+  const columnSettingsMap = new Map(tabColumns.map((col) => [col.form_field_id, col]));
+
   return formFields
-    .filter((f) => f.table_is_visible)
-    .sort((a, b) => a.table_order - b.table_order)
+    .filter((field) => {
+      const columnSetting = columnSettingsMap.get(field.id);
+      return columnSetting?.visible;
+    })
+    .sort((a, b) => {
+      const orderA = columnSettingsMap.get(a.id)?.order ?? 0;
+      const orderB = columnSettingsMap.get(b.id)?.order ?? 0;
+      return orderA - orderB;
+    })
     .map((field) => ({
       header: field.label,
       accessorKey: field.field_key.toLowerCase(),

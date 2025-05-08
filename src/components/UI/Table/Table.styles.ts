@@ -30,14 +30,14 @@ export const StyledIndexCell = styled.div<{ $isSelected?: boolean }>`
 
 export const StyledTh = styled.th`
   text-align: left;
-  color: #444;
+  color: rgb(29, 31, 37);
   background-color: #f4f4f4;
   color: rgb(29, 31, 37);
   border-bottom: 1px solid hsl(0, 0%, 82%);
   border-left: 1px solid hsl(202, 10%, 88%);
   padding-top: 1px;
   padding-left: 10px;
-  font-weight: 500;
+  font-weight: 400;
   height: 31px;
   white-space: nowrap;
   &:first-child {
@@ -64,10 +64,12 @@ export const StyledTd = styled.td`
   }
   input:not([type='checkbox']),
   select {
+    font-weight: 400;
+    font-size: 13px;
     padding-left: 10px;
+    color: rgb(29, 31, 37);
     width: 100%;
     height: 100%;
-    font-size: 14px;
     border: none;
     background-color: transparent;
     box-sizing: border-box;
