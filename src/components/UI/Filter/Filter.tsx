@@ -1,11 +1,11 @@
 import './Filter.styles.ts';
 
+import { Icon } from 'components/icons/Icon.tsx';
 import React, { useState } from 'react';
 
-import { FilterProps } from './Filter.types';
 import { Popup } from '../Popup/Popup.tsx';
-import { Icon } from 'components/icons/Icon.tsx';
 import { StyledFilterWrapper, StyledLabel } from './Filter.styles.ts';
+import { FilterProps } from './Filter.types';
 
 const Filter: React.FC<FilterProps> = () => {
   const [open, setOpen] = useState<boolean>(false);

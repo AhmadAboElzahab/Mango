@@ -1,6 +1,7 @@
 // Popup.tsx
 import React, { useEffect } from 'react';
 import ClickAwayListener from 'react-click-away-listener';
+
 import * as S from './Popup.styles';
 import { PopupProps } from './Popup.types';
 

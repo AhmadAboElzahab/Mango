@@ -1,10 +1,11 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import type { DataContainerProps } from './DataContainer.types';
-import { useModelIndex } from 'core/services/data.service';
+import Table from 'components/UI/Table';
 import TabsBar from 'components/UI/TabsBar';
 import Toolbar from 'components/UI/Toolbar';
-import Table from 'components/UI/Table';
+import { useModelIndex } from 'core/services/data.service';
+import React, { useCallback, useMemo, useState } from 'react';
 import { UserTab } from 'types/tabs';
+
+import type { DataContainerProps } from './DataContainer.types';
 
 const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
   const [activeTab, setActiveTab] = useState<UserTab>(tabsData.tabs?.[0]);

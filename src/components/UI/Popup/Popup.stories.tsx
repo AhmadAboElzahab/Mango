@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { Popup } from './Popup';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+
+import { Popup } from './Popup';
 
 const meta: Meta<typeof Popup> = {
   title: 'UI/Popup',

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { StyledSpan, StyledTabItem } from './TabItem.styles.ts';
 import { TabItemProps } from './TabItem.types.ts';
 

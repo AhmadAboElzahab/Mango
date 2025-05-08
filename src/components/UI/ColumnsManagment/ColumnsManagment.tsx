@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Popup } from '../Popup/Popup';
 import { Icon } from 'components/icons/Icon';
+import React, { useState } from 'react';
+
+import { Popup } from '../Popup/Popup';
 import { StyledColumnsManagmentWrapper, StyledLabel } from './ColumnsManagment.styles';
 
 interface Column {

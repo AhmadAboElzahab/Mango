@@ -1,4 +1,5 @@
 import React from 'react';
+
 import TabItem from '../TabItem';
 import { StyledTabsBar } from './TabsBar.styles.ts';
 import { TabsBarProps } from './TabsBar.types.ts';

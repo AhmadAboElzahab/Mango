@@ -24,7 +24,7 @@ vi.mock('../TabItem', () => ({
 
 describe('TabsBar', () => {
   it('renders the container and tab items', () => {
-    render(<TabsBar />);
+    render(<TabsBar  />);
 
     // Check the styled container
     expect(screen.getByTestId('styled-tabs-bar')).toBeInTheDocument();

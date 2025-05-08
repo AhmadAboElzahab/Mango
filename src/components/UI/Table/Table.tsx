@@ -1,20 +1,21 @@
-import React, { useMemo, useState } from 'react';
 import {
-  useReactTable,
-  getCoreRowModel,
-  flexRender,
-  RowSelectionState,
   ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  RowSelectionState,
+  useReactTable,
 } from '@tanstack/react-table';
-import { TableProps } from './Table.types';
 import { generateEditableColumnsFromMeta } from 'core/utils/tableColumnBuilder';
+import React, { useMemo, useState } from 'react';
+
 import {
-  StyledTable,
-  StyledTh,
-  StyledTd,
-  StyledTableWrapper,
   StyledIndexCell,
+  StyledTable,
+  StyledTableWrapper,
+  StyledTd,
+  StyledTh,
 } from './Table.styles';
+import { TableProps } from './Table.types';
 const Table: React.FC<TableProps> = ({ data, formFields, activeTabColumns }) => {
   const [tableData, setTableData] = useState(data);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});

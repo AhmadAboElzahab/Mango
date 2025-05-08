@@ -1,6 +1,7 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { FormField, TabsResponse,UserTab } from 'types/tabs'; // Adjust path if needed
+
 import { httpClient } from './api.service';
-import { FormField, UserTab, TabsResponse } from 'types/tabs'; // Adjust path if needed
 
 // ----------- Fetch tabs -------------
 export async function fetchTabs(model: string): Promise<TabsResponse<FormField, UserTab>> {

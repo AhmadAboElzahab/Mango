@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import Table from "./Table";
 import { describe, expect, it, vi } from 'vitest';
+
+import Table from "./Table";
 
 describe("Table", () => {
   it("renders the component", () => {
