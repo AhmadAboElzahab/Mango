@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Popup } from '../Popup/Popup.tsx';
-import { Icon } from 'components/icons/Icon.tsx';
-import { StyledColumnsManagmentWrapper, StyledLabel } from './ColumnsManagment.styles.ts';
+import { Popup } from '../Popup/Popup';
+import { Icon } from 'components/icons/Icon';
+import { StyledColumnsManagmentWrapper, StyledLabel } from './ColumnsManagment.styles';
 
 interface Column {
   field_key: string;
@@ -17,31 +17,42 @@ interface ColumnsManagmentProps {
 }
 
 const ColumnsManagment: React.FC<ColumnsManagmentProps> = ({ columns, onToggleColumn }) => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePopup = () => setIsOpen((prev) => !prev);
+  const closePopup = () => setIsOpen(false);
 
   return (
-    <StyledColumnsManagmentWrapper $active={open} onClick={() => setOpen((prev) => !prev)}>
-      <Icon name='Filter' width={16} height={16} fill='#1d1f24' />
-      <StyledLabel>Columns</StyledLabel>
-      <Popup isOpen={open} onClose={() => setOpen(false)}>
+    <StyledColumnsManagmentWrapper $active={isOpen}>
+      <div onClick={togglePopup}>
+        <Icon name='Filter' width={16} height={16} fill='#1d1f24' />
+        <StyledLabel>Columns</StyledLabel>
+      </div>
+
+      <Popup isOpen={isOpen} onClose={closePopup}>
         <div style={{ padding: '12px', minWidth: '220px' }}>
           <strong>Manage Columns</strong>
           <div style={{ marginTop: '10px' }}>
-            {columns.map((col) => (
+            {columns.map(({ field_key, visible }) => (
               <label
-                key={col.field_key}
-                style={{ display: 'flex', alignItems: 'center', marginBottom: '6px' }}
+                key={field_key}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '6px',
+                  cursor: 'pointer',
+                }}
               >
                 <input
                   type='checkbox'
-                  checked={col.visible}
+                  checked={visible}
                   onChange={(e) => {
-                    e.stopPropagation(); // Prevent popup toggle
-                    onToggleColumn(col.field_key);
+                    e.stopPropagation();
+                    onToggleColumn(field_key);
                   }}
                   style={{ marginRight: '8px' }}
                 />
-                {col.field_key}
+                {field_key}
               </label>
             ))}
           </div>

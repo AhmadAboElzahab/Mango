@@ -69,6 +69,7 @@ const Table: React.FC<TableProps> = ({ data, formFields, activeTabColumns }) => 
     onRowSelectionChange: setRowSelection,
     enableRowSelection: true,
     getCoreRowModel: getCoreRowModel(),
+  
   });
 
   return (

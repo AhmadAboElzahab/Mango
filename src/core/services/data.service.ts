@@ -18,6 +18,7 @@ export function useModelIndex(params: IndexQueryParams) {
   return useQuery({
     queryKey: ['modelIndex', params.model, params.filters, params.search_term, params.columns],
     queryFn: () => getModelIndex(params),
-    enabled: !!params.model && params.columns.length > 0, // avoid calling if model is undefined
+    enabled: !!params.model && params.columns.length > 0,
+    placeholderData: (previousData) => previousData,
   });
 }
