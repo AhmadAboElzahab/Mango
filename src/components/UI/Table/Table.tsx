@@ -45,15 +45,18 @@ const Table: React.FC<TableProps & { totalCount: number }> = ({
   });
 
   const virtualRows = rowVirtualizer.getVirtualItems();
-  const totalSize = rowVirtualizer.getTotalSize();
-  const paddingTop = virtualRows.length > 0 ? virtualRows[0].start : 0;
-  const paddingBottom =
-    virtualRows.length > 0 ? totalSize - virtualRows[virtualRows.length - 1].end : 0;
 
   return (
     <StyledTableWrapper ref={parentRef}>
       <StyledTable>
-        <thead>
+        <thead
+          style={{
+            position: 'sticky',
+            top: 0,
+            zIndex: 100000000,
+            backgroundColor: 'red',
+          }}
+        >
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (

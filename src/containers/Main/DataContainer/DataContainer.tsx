@@ -1,23 +1,22 @@
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import Table from 'components/UI/Table';
 import TabsBar from 'components/UI/TabsBar';
 import Toolbar from 'components/UI/Toolbar';
 import { useInfiniteModelIndex } from 'core/services/data.service';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { UserTab } from 'types/tabs';
 
 import type { DataContainerProps } from './DataContainer.types';
+import type { UserTab } from 'types/tabs';
+import { useAutoFetchIfShort, useInfiniteScrollObserver } from 'hooks/useInfiniteHelpers';
 
 const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
   const [activeTab, setActiveTab] = useState<UserTab>(tabsData.tabs?.[0]);
   const [columns, setColumns] = useState(() => activeTab?.columns ?? []);
-  const sentinelRef = useRef<HTMLDivElement | null>(null);
-  const shortContentCheckTriggered = useRef(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
-  const handleTabChange = (tab: UserTab) => {
+  const handleTabChange = useCallback((tab: UserTab) => {
     setActiveTab(tab);
     setColumns(tab.columns);
-    shortContentCheckTriggered.current = false; // Reset for new tab
-  };
+  }, []);
 
   const toggleColumnVisibility = useCallback((fieldKey: string) => {
     setColumns((prev) =>
@@ -42,45 +41,8 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
   const flatData = useMemo(() => data?.pages.flatMap((p) => p.data) ?? [], [data]);
   const totalCount = data?.pages?.[0]?.meta?.totalRowCount ?? 0;
 
-  // Auto-fetch if short content on first mount or tab change
-  useEffect(() => {
-    if (shortContentCheckTriggered.current || !hasNextPage || isFetching) return;
-
-    const wrapper = document.getElementById('data-container-scroll');
-    if (!wrapper) return;
-
-    const needsMoreData =
-      wrapper.scrollHeight <= wrapper.clientHeight && flatData.length < totalCount;
-
-    if (needsMoreData) {
-      console.log('📦 Auto-fetch for short content');
-      fetchNextPage();
-      shortContentCheckTriggered.current = true;
-    }
-  }, [flatData.length, totalCount, isFetching, fetchNextPage, hasNextPage]);
-
-  // Intersection Observer for infinite scroll
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    const scrollContainer = document.getElementById('data-container-scroll');
-    if (!sentinel || !scrollContainer || !hasNextPage) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isFetching && hasNextPage) {
-          console.log('🧲 Observer triggered next page');
-          fetchNextPage();
-        }
-      },
-      {
-        root: scrollContainer,
-        rootMargin: '300px',
-      },
-    );
-
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, [fetchNextPage, isFetching, hasNextPage]);
+  useAutoFetchIfShort(flatData.length, totalCount, fetchNextPage, hasNextPage, isFetching);
+  useInfiniteScrollObserver(sentinelRef, fetchNextPage, isFetching, hasNextPage);
 
   if (isLoading) return <div style={{ padding: 20 }}>Loading...</div>;
 
@@ -88,7 +50,14 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <TabsBar tabs={tabsData.tabs} activeTab={activeTab} onTabChange={handleTabChange} />
       <Toolbar key={activeTab?.id} columns={columns} onToggleColumn={toggleColumnVisibility} />
-      <div id='data-container-scroll' style={{ flex: 1, overflowY: 'auto' }}>
+      <div
+        id='data-container-scroll'
+        style={{
+          flex: 1,
+          overflowY: 'auto',
+          position: 'relative',
+        }}
+      >
         <Table
           data={flatData}
           formFields={tabsData.form_fields}

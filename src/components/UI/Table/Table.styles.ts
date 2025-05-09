@@ -4,6 +4,7 @@ export const StyledTableWrapper = styled.div`
   width: 100%;
   overflow-x: hidden;
   background: #fff;
+  overflow: visible; /* Important: DO NOT set overflow-y here */
 `;
 
 export const StyledTable = styled.table`
