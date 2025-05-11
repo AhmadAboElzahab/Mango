@@ -31,7 +31,7 @@ const ColumnsManagment: React.FC<ColumnsManagmentProps> = ({ columns, onToggleCo
       </div>
 
       <Popup isOpen={isOpen} onClose={closePopup}>
-        <div style={{ padding: '12px', minWidth: '220px' }}>
+        <div style={{ padding: '12px', minWidth: '220px', maxHeight: '300px', overflowY: 'auto' }}>
           <strong>Manage Columns</strong>
           <div style={{ marginTop: '10px' }}>
             {columns.map(({ field_key, visible }) => (

@@ -4,4 +4,5 @@ export interface TableProps {
   data: any[];
   formFields: FormField[];
   activeTabColumns: UserTabColumn[];
+  isLoading: boolean;
 }

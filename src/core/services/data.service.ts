@@ -1,4 +1,4 @@
-import { keepPreviousData,useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { httpClient } from './api.service';
 
@@ -29,7 +29,6 @@ export function useInfiniteModelIndex(params: Omit<IndexQueryParams, 'page' | 's
         size: PAGE_SIZE,
       });
 
-      // ✅ Return both `data` and `meta`
       return {
         data: response.data.data,
         meta: response.data.meta,
@@ -40,6 +39,5 @@ export function useInfiniteModelIndex(params: Omit<IndexQueryParams, 'page' | 's
       return loadedCount < lastPage.meta.totalRowCount ? allPages.length : undefined;
     },
     initialPageParam: 0,
-    placeholderData: keepPreviousData,
   });
 }

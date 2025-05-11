@@ -1,10 +1,39 @@
 import styled from 'styled-components';
+import { keyframes } from 'styled-components';
+
+const shimmer = keyframes`
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+`;
+
+export const SkeletonCell = styled.div`
+  height: 20%;
+  width: 90%;
+  margin-inline: auto;
+  background-color: #e2e2e2;
+  border-radius: 4px;
+  animation: ${shimmer} 1.2s infinite linear;
+  background: linear-gradient(90deg, #e2e2e2 0px, #f5f5f5 40px, #e2e2e2 80px);
+  background-size: 200px 100%;
+  opacity: 0.4;
+`;
+export const SkeletonHeader = styled.div`
+  height: 20%;
+  width: 90%;
+  margin-inline: auto;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  animation: ${shimmer} 1.2s infinite linear;
+  background: linear-gradient(90deg, #e0e0e0 0px, #f5f5f5 40px, #e0e0e0 80px);
+  background-size: 200px 100%;
+  opacity: 0.4;
+`;
 
 export const StyledTableWrapper = styled.div`
   width: 100%;
   overflow-x: hidden;
   background: #fff;
-  overflow: visible; /* Important: DO NOT set overflow-y here */
+  overflow: visible;
 `;
 
 export const StyledTable = styled.table`

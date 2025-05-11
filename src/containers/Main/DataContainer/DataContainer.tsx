@@ -7,34 +7,47 @@ import { useInfiniteModelIndex } from 'core/services/data.service';
 import type { DataContainerProps } from './DataContainer.types';
 import type { UserTab } from 'types/tabs';
 import { useAutoFetchIfShort, useInfiniteScrollObserver } from 'hooks/useInfiniteHelpers';
+import { queryClient } from 'core/services/clients/queryClient';
 
 const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
   const [activeTab, setActiveTab] = useState<UserTab>(tabsData.tabs?.[0]);
   const [columns, setColumns] = useState(() => activeTab?.columns ?? []);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const [queryKeyVersion, setQueryKeyVersion] = useState(0);
 
   const handleTabChange = useCallback((tab: UserTab) => {
     setActiveTab(tab);
     setColumns(tab.columns);
   }, []);
+  const toggleColumnVisibility = useCallback(
+    (fieldKey: string) => {
+      setColumns((prev) => {
+        const updated = prev.map((col) =>
+          col.field_key === fieldKey ? { ...col, visible: !col.visible } : col,
+        );
 
-  const toggleColumnVisibility = useCallback((fieldKey: string) => {
-    setColumns((prev) =>
-      prev.map((col) => (col.field_key === fieldKey ? { ...col, visible: !col.visible } : col)),
-    );
-  }, []);
+        // Remove old query cache completely
+        queryClient.removeQueries({
+          queryKey: ['modelIndex', model, activeTab?.id],
+        });
 
-  const queryParams = useMemo(
-    () => ({
-      tab_id: activeTab?.id,
-      model,
-      filters: activeTab?.filters ?? {},
-      search_term: activeTab?.search_term ?? '',
-      columns,
-    }),
-    [activeTab, model, columns],
+        // Force remount/re-fetch
+        setQueryKeyVersion((v) => v + 1);
+
+        return updated;
+      });
+    },
+    [model, activeTab?.id],
   );
 
+  const queryParams = {
+    tab_id: activeTab?.id,
+    model,
+    filters: activeTab?.filters ?? {},
+    search_term: activeTab?.search_term ?? '',
+    columns,
+    keyVersion: queryKeyVersion,
+  };
   const { data, fetchNextPage, isFetching, isLoading, hasNextPage } =
     useInfiniteModelIndex(queryParams);
 
@@ -43,8 +56,6 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
 
   useAutoFetchIfShort(flatData.length, totalCount, fetchNextPage, hasNextPage, isFetching);
   useInfiniteScrollObserver(sentinelRef, fetchNextPage, isFetching, hasNextPage);
-
-  if (isLoading) return <div style={{ padding: 20 }}>Loading...</div>;
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -59,7 +70,9 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
         }}
       >
         <Table
+          key={columns.map((c) => c.field_key + c.visible).join('_')}
           data={flatData}
+          isLoading={isLoading}
           formFields={tabsData.form_fields}
           activeTabColumns={columns}
           totalCount={totalCount}
