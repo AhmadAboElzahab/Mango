@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { httpClient } from './api.service';
 
@@ -8,24 +8,24 @@ export interface IndexQueryParams {
   filters: Record<string, any>;
   search_term: string;
   columns: any;
+  page: number;
+  size: number;
 }
-
-const PAGE_SIZE = 50;
-
-export function useInfiniteModelIndex(params: Omit<IndexQueryParams, 'page' | 'size'>) {
-  return useInfiniteQuery({
+export const PAGE_SIZE = 50;
+export function usePaginatedModelIndex(params: Omit<IndexQueryParams, 'size'>) {
+  return useQuery({
     queryKey: [
       'modelIndex',
       params.model,
       params.tab_id,
-      params.filters,
-      params.search_term,
-      params.columns,
+      params.page,
+      JSON.stringify(params.filters ?? {}),
+      params.search_term ?? '',
+      JSON.stringify(params.columns ?? []),
     ],
-    queryFn: async ({ pageParam = 0 }) => {
+    queryFn: async () => {
       const response = await httpClient.post(`/api/${params.model}/index`, {
         ...params,
-        page: pageParam,
         size: PAGE_SIZE,
       });
 
@@ -34,10 +34,6 @@ export function useInfiniteModelIndex(params: Omit<IndexQueryParams, 'page' | 's
         meta: response.data.meta,
       };
     },
-    getNextPageParam: (lastPage, allPages) => {
-      const loadedCount = allPages.reduce((acc, p) => acc + p.data.length, 0);
-      return loadedCount < lastPage.meta.totalRowCount ? allPages.length : undefined;
-    },
-    initialPageParam: 0,
+    // placeholderData: keepPreviousData,
   });
 }

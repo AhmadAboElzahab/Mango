@@ -46,16 +46,16 @@ export const StyledIndexCell = styled.div<{ $isSelected?: boolean }>`
   align-items: center;
   justify-content: center;
   height: 100%;
-  cursor: pointer;
-
-  input[type='checkbox'] {
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  color: ${({ $isSelected }) => ($isSelected ? '#0366d6' : '#888')};
-  font-weight: ${({ $isSelected }) => ($isSelected ? '600' : 'normal')};
+  min-width: 36px;
+  max-width: 36px;
+  padding: 0;
+`;
+export const FadeTbody = styled.tbody<{ $visible: boolean }>`
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+  pointer-events: ${({ $visible }) => ($visible ? 'auto' : 'none')};
+  transition: opacity 0.4s ease;
+  position: ${({ $visible }) => ($visible ? 'relative' : 'absolute')};
+  width: 100%;
 `;
 
 export const StyledTh = styled.th`
@@ -86,12 +86,18 @@ export const StyledTd = styled.td`
   border-left: 1px solid hsl(202, 10%, 88%);
   border-right: none;
   border-top: none;
+
   &:first-child {
     border-left: none;
+    width: 36px;
+    max-width: 36px;
+    padding: 0 !important;
   }
+
   &:nth-child(2) {
     border-left: none;
   }
+
   input:not([type='checkbox']),
   select {
     font-weight: 400;

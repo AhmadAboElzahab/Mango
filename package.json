@@ -47,6 +47,7 @@
     "@storybook/test": "^8.6.12",
     "@svgr/cli": "^8.1.0",
     "@tanstack/router-plugin": "^1.116.1",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",

@@ -3,7 +3,8 @@
     "baseUrl": "src",
     "paths": {
       "@shared-types/*": ["shared/types/*"]
-    }
+    },
+    "types": ["vitest/globals"]
   },
   "files": [],
   "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
