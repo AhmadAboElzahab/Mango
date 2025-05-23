@@ -1,14 +1,7 @@
-import { useRouter } from '@tanstack/react-router';
-import { pageSearchSchema } from 'schemas/querySchema';
+import { useSearch } from '@tanstack/react-router';
 
-export const useValidatedPageQuery = () => {
-  const router = useRouter();
-  const search = router.state.location.search;
-
-  const result = pageSearchSchema.safeParse(search);
-  if (!result.success) {
-    return { page: 1, isValid: false, errors: result.error.format() };
-  }
-
-  return { page: result.data.page, isValid: true, errors: null };
-};
+export function useValidatedPageQuery<T extends { page?: number } = { page?: number }>() {
+  const search = useSearch<T>({});
+  const page = search.page ?? 1;
+  return { page: Math.max(0, page - 1) };
+}

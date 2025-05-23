@@ -10,6 +10,7 @@ export interface IndexQueryParams {
   columns: any;
   page: number;
   size: number;
+  search: string;
 }
 export const PAGE_SIZE = 50;
 export function usePaginatedModelIndex(params: Omit<IndexQueryParams, 'size'>) {
@@ -19,6 +20,7 @@ export function usePaginatedModelIndex(params: Omit<IndexQueryParams, 'size'>) {
       params.model,
       params.tab_id,
       params.page,
+      params.search,
       JSON.stringify(params.filters ?? {}),
       params.search_term ?? '',
       JSON.stringify(params.columns ?? []),

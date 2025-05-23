@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useRouter } from '@tanstack/react-router';
 
 import Table from 'components/UI/Table';
@@ -16,6 +16,7 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
 
   const [activeTab, setActiveTab] = React.useState<UserTab>(tabsData.tabs?.[0]);
   const [columns, setColumns] = React.useState(() => activeTab?.columns ?? []);
+  const [search, setSearch] = React.useState<string>();
 
   const handleTabChange = (tab: UserTab) => {
     setActiveTab(tab);
@@ -32,7 +33,6 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
       prev.map((col) => (col.field_key === fieldKey ? { ...col, visible: !col.visible } : col)),
     );
   }, []);
-
   const queryParams = {
     tab_id: activeTab?.id ?? 0,
     model,
@@ -40,6 +40,7 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
     search_term: activeTab?.search_term ?? '',
     columns: [...columns],
     page, // already 0-based
+    search: search ?? '',
   };
   const { data, isLoading, isFetching } = usePaginatedModelIndex(queryParams);
 
@@ -55,11 +56,18 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
       replace: true,
     });
   };
-
+  const handleSearch = (searchTerm: string) => {
+    setSearch(searchTerm);
+  };
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <TabsBar tabs={tabsData.tabs} activeTab={activeTab} onTabChange={handleTabChange} />
-      <Toolbar key={activeTab?.id} columns={columns} onToggleColumn={toggleColumnVisibility} />
+      <Toolbar
+        key={activeTab?.id}
+        columns={columns}
+        onToggleColumn={toggleColumnVisibility}
+        onSearch={handleSearch}
+      />
 
       <div id='data-container-scroll' style={{ flex: 1, overflowY: 'auto', position: 'relative' }}>
         <Table

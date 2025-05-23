@@ -1,6 +1,12 @@
 import { ColumnDef } from '@tanstack/react-table';
 import React from 'react';
+import Select from 'react-select';
 import { FormField, UserTabColumn } from 'types/tabs'; // adjust path
+
+interface SelectOption {
+  value: string | number;
+  label: string;
+}
 
 export function generateEditableColumnsFromMeta<T>(
   formFields: FormField[],
@@ -21,35 +27,64 @@ export function generateEditableColumnsFromMeta<T>(
     })
     .map((field) => ({
       header: field.label,
-      accessorKey: field.field_key.toLowerCase(),
+      accessorKey: field.field_key.includes('.')
+        ? field.field_key.split('.')[0].toLowerCase()
+        : field.field_key.toLowerCase(),
       cell: ({ row, getValue }) => {
         const initialValue = getValue();
-        const [value, setValue] = React.useState(initialValue);
+        const [value, setValue] = React.useState<any>(initialValue);
 
         const onBlur = () => {
           updateRow(row.index, field.field_key.toLowerCase(), value);
         };
 
-        if (field.form_field_type === 'single_select') {
+        const options: SelectOption[] =
+          field.options?.map((opt) => ({
+            value: opt.value,
+            label: opt.label,
+          })) ?? [];
+
+        const isMulti = field.form_field_type === 'multi_relation';
+
+        if (
+          field.form_field_type === 'single_select' ||
+          field.form_field_type === 'single_relation' ||
+          field.form_field_type === 'multi_relation'
+        ) {
+          let selectedValue: SelectOption | SelectOption[] | null = null;
+
+          if (isMulti && Array.isArray(value)) {
+            selectedValue = value
+              .map((v) => options.find((opt) => opt.value === (v?.value ?? v?.ID ?? v)))
+              .filter(Boolean) as SelectOption[];
+          } else {
+            const val = value?.value ?? value?.ID ?? value;
+            selectedValue = options.find((opt) => opt.value === val) ?? null;
+          }
+
           return (
-            <select
-              value={value?.ID ?? ''}
-              onChange={(e) =>
-                setValue(field.options?.find((opt) => String(opt.value) === e.target.value) || {})
-              }
+            <Select
+              options={options}
+              value={selectedValue}
+              isMulti={isMulti}
+              onChange={(selected) => {
+                setValue(selected);
+                updateRow(row.index, field.field_key.toLowerCase(), selected);
+              }}
               onBlur={onBlur}
-            >
-              {field.options?.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
+              menuPortalTarget={document.body}
+              styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+              isClearable
+            />
           );
         }
 
         return (
-          <input value={String(value)} onChange={(e) => setValue(e.target.value)} onBlur={onBlur} />
+          <input
+            value={String(value ?? '')}
+            onChange={(e) => setValue(e.target.value)}
+            onBlur={onBlur}
+          />
         );
       },
     }));

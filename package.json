@@ -29,6 +29,7 @@
     "react": "^19.0.0",
     "react-click-away-listener": "^2.4.0",
     "react-dom": "^19.0.0",
+    "react-select": "^5.10.1",
     "secure-ls": "^2.0.0",
     "styled-components": "^6.1.17",
     "vite-tsconfig-paths": "^5.1.4",
