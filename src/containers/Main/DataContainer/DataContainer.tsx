@@ -1,31 +1,29 @@
-import React, { useCallback } from 'react';
-import { useRouter } from '@tanstack/react-router';
-
-import Table from 'components/UI/Table';
+import React, { useCallback, useMemo, useState } from 'react';
 import TabsBar from 'components/UI/TabsBar';
 import Toolbar from 'components/UI/Toolbar';
-import { PAGE_SIZE, usePaginatedModelIndex } from 'core/services/data.service';
+import Table from 'components/UI/Table';
+import { usePaginatedModelIndex, PAGE_SIZE } from 'core/services/data.service';
 
-import { useValidatedPageQuery } from 'hooks/useValidatedPageQuery';
 import type { UserTab } from 'types/tabs';
 import type { DataContainerProps } from './DataContainer.types';
+import { OnChangeFn } from '@tanstack/react-table';
 
-const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
-  const router = useRouter();
-  const { page } = useValidatedPageQuery(); // page is 0-based
+const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData, filters, setFilters }) => {
+  const [activeTab, setActiveTab] = useState<UserTab>(tabsData.tabs?.[0]);
+  const [columns, setColumns] = useState(() => activeTab?.columns ?? []);
 
-  const [activeTab, setActiveTab] = React.useState<UserTab>(tabsData.tabs?.[0]);
-  const [columns, setColumns] = React.useState(() => activeTab?.columns ?? []);
-  const [search, setSearch] = React.useState<string>();
+  const pageIndex = filters.pageIndex ?? 0;
+  const pageSize = filters.pageSize ?? PAGE_SIZE;
+  const search = filters.search ?? '';
 
   const handleTabChange = (tab: UserTab) => {
     setActiveTab(tab);
     setColumns(tab.columns);
-    router.navigate({
-      to: router.state.location.pathname,
-      search: (prev) => ({ ...prev, page: 1 }),
-      replace: true,
-    });
+    setFilters({ pageIndex: 0 });
+  };
+
+  const handleSearch = (searchTerm: string) => {
+    setFilters({ search: searchTerm, pageIndex: 0 });
   };
 
   const toggleColumnVisibility = useCallback((fieldKey: string) => {
@@ -33,35 +31,52 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
       prev.map((col) => (col.field_key === fieldKey ? { ...col, visible: !col.visible } : col)),
     );
   }, []);
+
+  const pagination = useMemo(
+    () => ({
+      pageIndex,
+      pageSize,
+    }),
+    [pageIndex, pageSize],
+  );
+
+  const updatePagination: OnChangeFn<{
+    pageIndex: number;
+    pageSize: number;
+  }> = (updaterOrValue) => {
+    const next =
+      typeof updaterOrValue === 'function'
+        ? (
+            updaterOrValue as (prev: { pageIndex: number; pageSize: number }) => {
+              pageIndex: number;
+              pageSize: number;
+            }
+          )(pagination)
+        : updaterOrValue;
+    setFilters({
+      pageIndex: next.pageIndex,
+      pageSize: next.pageSize,
+    });
+  };
+
   const queryParams = {
     tab_id: activeTab?.id ?? 0,
     model,
     filters: activeTab?.filters ?? {},
     search_term: activeTab?.search_term ?? '',
     columns: [...columns],
-    page, // already 0-based
-    search: search ?? '',
+    page: pageIndex,
+    search,
   };
-  const { data, isLoading, isFetching } = usePaginatedModelIndex(queryParams);
 
+  const { data, isLoading, isFetching } = usePaginatedModelIndex(queryParams);
   const flatData = data?.data ?? [];
   const totalCount = data?.meta?.totalRowCount ?? 0;
-  const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
-  const goToPage = (newPage: number) => {
-    console.log(newPage);
-    router.navigate({
-      to: router.state.location.pathname,
-      search: (prev) => ({ ...prev, page: newPage + 1 }), // write 1-based to URL
-      replace: true,
-    });
-  };
-  const handleSearch = (searchTerm: string) => {
-    setSearch(searchTerm);
-  };
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <TabsBar tabs={tabsData.tabs} activeTab={activeTab} onTabChange={handleTabChange} />
+
       <Toolbar
         key={activeTab?.id}
         columns={columns}
@@ -71,35 +86,21 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData }) => {
 
       <div id='data-container-scroll' style={{ flex: 1, overflowY: 'auto', position: 'relative' }}>
         <Table
-          key={`${page}-${columns.map((c) => `${c.field_key}-${c.visible}`).join('_')}`}
+          key={`${pageIndex}-${columns.map((c) => `${c.field_key}-${c.visible}`).join('_')}`}
           data={flatData}
           isLoading={isLoading}
           formFields={tabsData.form_fields}
           activeTabColumns={columns}
           totalCount={totalCount}
+          pagination={pagination}
+          setPagination={updatePagination}
         />
 
         {isFetching && !isLoading && (
           <div style={{ textAlign: 'center', padding: '4px', fontSize: '12px', color: '#666' }}>
-            Loading page {page + 1}...
+            Loading page {pageIndex + 1}...
           </div>
         )}
-      </div>
-
-      {/* pagenation */}
-      <div style={{ padding: '8px', display: 'flex', justifyContent: 'center', gap: '12px' }}>
-        <button onClick={() => goToPage(Math.max(0, page - 1))} disabled={page === 0}>
-          Previous
-        </button>
-        <span>
-          Page {page + 1} of {totalPages}
-        </span>
-        <button
-          onClick={() => goToPage(Math.min(totalPages - 1, page + 1))}
-          disabled={page >= totalPages - 1}
-        >
-          Next
-        </button>
       </div>
     </div>
   );

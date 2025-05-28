@@ -36,6 +36,6 @@ export function usePaginatedModelIndex(params: Omit<IndexQueryParams, 'size'>) {
         meta: response.data.meta,
       };
     },
-    // placeholderData: keepPreviousData,
+    placeholderData: keepPreviousData,
   });
 }

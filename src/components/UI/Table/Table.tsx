@@ -1,7 +1,12 @@
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { generateEditableColumnsFromMeta } from 'core/utils/tableColumnBuilder';
 import React, { useMemo } from 'react';
-
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
+import { generateEditableColumnsFromMeta } from 'core/utils/tableColumnBuilder';
 import {
   FadeTbody,
   SkeletonCell,
@@ -13,13 +18,17 @@ import {
   StyledTh,
 } from './Table.styles';
 import { TableProps } from './Table.types';
+import { PAGE_SIZE } from 'core/services/data.service';
 
-const Table: React.FC<TableProps & { totalCount: number }> = ({
-  data,
-  formFields,
-  activeTabColumns,
-  isLoading,
-}) => {
+import type { OnChangeFn, PaginationState } from '@tanstack/react-table';
+
+const Table: React.FC<
+  TableProps & {
+    totalCount: number;
+    pagination: PaginationState;
+    setPagination: OnChangeFn<PaginationState>;
+  }
+> = ({ data, formFields, activeTabColumns, isLoading, totalCount, pagination, setPagination }) => {
   const columns = useMemo<ColumnDef<any>[]>(
     () => [
       {
@@ -38,7 +47,14 @@ const Table: React.FC<TableProps & { totalCount: number }> = ({
   const table = useReactTable({
     data,
     columns,
+    manualPagination: true,
+    pageCount: Math.ceil(totalCount / PAGE_SIZE),
+    state: {
+      pagination,
+    },
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (
@@ -86,6 +102,19 @@ const Table: React.FC<TableProps & { totalCount: number }> = ({
           </FadeTbody>
         )}
       </StyledTable>
+
+      {/* Optional: Pagination controls */}
+      <div style={{ padding: '8px', display: 'flex', justifyContent: 'center', gap: '12px' }}>
+        <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+          Previous
+        </button>
+        <span>
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </span>
+        <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+          Next
+        </button>
+      </div>
     </StyledTableWrapper>
   );
 };
