@@ -78,6 +78,7 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData, filters,
       <TabsBar tabs={tabsData.tabs} activeTab={activeTab} onTabChange={handleTabChange} />
 
       <Toolbar
+        formFields={tabsData.form_fields}
         key={activeTab?.id}
         columns={columns}
         onToggleColumn={toggleColumnVisibility}
