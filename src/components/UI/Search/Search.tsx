@@ -1,18 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './Search.styles.ts';
 import { SearchProps } from './Search.types';
 import { Icon } from 'components/icons/Icon.tsx';
 import { StyledLabel } from './Search.styles.ts';
 
-const Search: React.FC<SearchProps> = ({
-  onSearch,
-  // Add any other props you need
-}) => {
+const Search: React.FC<SearchProps> = ({ onSearch, searchValue = '' }) => {
+  const [localValue, setLocalValue] = useState(searchValue);
+
+  // Update local value when searchValue prop changes
+  useEffect(() => {
+    setLocalValue(searchValue);
+  }, [searchValue]);
+
+  // Debounced search effect
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (localValue !== searchValue) {
+        onSearch(localValue);
+      }
+    }, 300); // 300ms debounce
+
+    return () => clearTimeout(timeoutId);
+  }, [localValue, onSearch, searchValue]);
+
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocalValue(e.target.value);
+  }, []);
+
   return (
     <div>
       <Icon name='Filter' width={16} height={16} fill='#1d1f24' />
       <StyledLabel>Search</StyledLabel>
       <input
+        value={localValue}
         type='text'
         placeholder='Search...'
         style={{
@@ -21,11 +41,10 @@ const Search: React.FC<SearchProps> = ({
           border: '1px solid #ccc',
           marginLeft: '8px',
         }}
-        onChange={(e) => {
-          onSearch(e.target.value);
-        }}
+        onChange={handleInputChange}
       />
     </div>
   );
 };
+
 export default Search;

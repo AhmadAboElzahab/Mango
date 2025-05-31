@@ -3,4 +3,7 @@ export interface ToolbarProps {
   onToggleColumn: (fieldKey: string) => void;
   onSearch: (searchTerm: string) => void;
   formFields?: any[];
+  searchValue: string;
+  filters?: any;
+  setFilters?: (filters: any) => void;
 }

@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import styled from 'styled-components';
 import Select from 'react-select';
 import {
   TYPE_CREATABLE_MULTI_SELECT,
@@ -24,6 +23,18 @@ import {
   TYPE_UPLOAD_FIELD,
   TYPE_URL,
 } from '../../constants/fields';
+import {
+  ColumnContainer,
+  OperatorContainer,
+  Container,
+  FlexOneContainer,
+  StyledInput,
+  StyledSelect,
+  FlexThreeHalfContainer,
+  NumberInput,
+  ValueContainer,
+  DateInput,
+} from './style';
 
 interface FilterItemProps {
   data: any;
@@ -43,107 +54,17 @@ interface Item {
   label: string;
 }
 
-// Styled Components
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  align-items: center;
-`;
-
-const ColumnContainer = styled.div<{ $isCurrency?: boolean }>`
-  flex: 1;
-  ${({ $isCurrency }) =>
-    $isCurrency &&
-    `
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
-    justify-content: space-between;
-  `}
-`;
-
-const OperatorContainer = styled.div`
-  flex: 1;
-`;
-
-const ValueContainer = styled.div`
-  flex: 1.5;
-  display: flex;
-  gap: 0.5rem;
-`;
-
-const FlexOneContainer = styled.div`
-  flex: 1;
-`;
-
-const FlexThreeHalfContainer = styled.div`
-  flex: 3.5;
-`;
-
-const StyledSelect = styled(Select)`
-  .react-select__control {
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-  }
-`;
-
-const StyledInput = styled.input`
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  outline: none;
-
-  &:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  }
-
-  &::placeholder {
-    color: #9ca3af;
-  }
-`;
-
-const DateInput = styled.input`
-  flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  outline: none;
-
-  &:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  }
-`;
-
-const NumberInput = styled.input`
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  outline: none;
-
-  &:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  }
-
-  &::placeholder {
-    color: #9ca3af;
-  }
-`;
-
 const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
+  console.log('FilterItem useEffect', item);
+
   const [selectedColumn, setSelectedColumn] = useState(() => {
-    const column = data?.columns
-      ?.concat(data.extra_columns ?? [])
-      .find((col: any) => col.form_field_id === item.fieldId);
+    const column = data?.find((col: any) => col?.id === item.fieldId);
     return column
       ? {
-          value: { id: column.id, type: column.form_field.type, fieldId: column.form_field_id },
+          value: { id: column.id, type: column?.type, fieldId: column.id },
           columnId: column.id,
-          label: column.form_field.label,
-          selectOption: column.form_field.options || [],
+          label: column?.label,
+          selectOption: column?.options || [],
         }
       : undefined;
   });
@@ -219,11 +140,7 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
       case TYPE_SINGLE_RELATION:
       case TYPE_SINGLE_SELECT:
       case TYPE_CREATABLE_SINGLE_SELECT:
-        if (
-          !data.columns
-            .concat(data.extra_columns ?? [])
-            .find((column: any) => column.form_field_id === item.fieldId).form_field?.options
-        ) {
+        if (!data?.find((column: any) => column?.id === item.fieldId)?.options) {
           return [
             { label: 'contains...', value: 'contains' },
             { label: 'does not contain...', value: 'doesNotContain' },
@@ -273,7 +190,7 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
   };
 
   useEffect(() => {
-    if (item.columnType) {
+    if (item.type) {
       const operators = getOperators(item);
       setOperatorOptions(operators);
 
@@ -287,36 +204,43 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
   }, [item]);
 
   useEffect(() => {
+    if (
+      !selectedColumn ||
+      !selectedColumn.value?.id ||
+      !selectedColumn.value?.type ||
+      selectedOperator === undefined // allow null, but block undefined
+    ) {
+      return;
+    }
+
     const updatedItem: Item = {
       ...item,
-      columnId: selectedColumn?.value?.id || '',
-      fieldId: selectedColumn?.value?.fieldId || '',
-      label: selectedColumn?.label || '',
-      columnType: selectedColumn?.value?.type || '',
+      columnId: selectedColumn.value.id,
+      fieldId: selectedColumn.value.fieldId,
+      label: selectedColumn.label || '',
+      columnType: selectedColumn.value.type,
       operator: selectedOperator,
       value:
         selectedOperator?.value === 'isEmpty' || selectedOperator?.value === 'isNotEmpty'
           ? ''
           : firstValue,
+      secondOperator: selectedSecondOperator || undefined,
     };
-    if (selectedSecondOperator) {
-      updatedItem.secondOperator = selectedSecondOperator;
-    }
+
     onItemChange(updatedItem);
   }, [selectedColumn, selectedOperator, selectedSecondOperator, firstValue]);
-
   return (
     <Container>
       <ColumnContainer $isCurrency={selectedColumn?.value?.type === TYPE_CURRENCY_FIELD}>
-        <StyledSelect
-          options={data?.columns?.concat(data?.extra_columns ?? []).map((column: any) => ({
-            value: { id: column.id, type: column.form_field.type, fieldId: column.form_field_id },
+        <Select
+          options={data?.map((column: any) => ({
+            value: { id: column.id, type: column.form_field_type, fieldId: column.id },
             columnId: column.id,
-            label: column.form_field.label,
-            options: column.form_field.options || [],
+            label: column.label,
           }))}
           value={selectedColumn as any}
           onChange={(e: any) => {
+            console.log(e);
             setSelectedColumn(e);
             setSelectedOperator(null);
             setSelectedSecondOperator(null);
@@ -324,9 +248,8 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
           }}
         />
       </ColumnContainer>
-
       <OperatorContainer>
-        <StyledSelect
+        <Select
           isClearable={false}
           options={_operatorOptions}
           value={selectedOperator}
@@ -337,7 +260,6 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
           }}
         />
       </OperatorContainer>
-
       <ValueContainer data-id={selectedColumn?.value?.type}>
         {(selectedOperator?.value === 'is' ||
           selectedOperator?.value === 'isNot' ||
@@ -353,9 +275,9 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
           selectedColumn?.value?.type === TYPE_CREATABLE_SINGLE_SELECT ||
           selectedColumn?.value?.type === TYPE_MULTI_RELATION ||
           selectedColumn?.value?.type === TYPE_CREATABLE_MULTI_SELECT) ? (
-          data.columns.concat(data.extra_columns ?? [])?.length ? (
+          data?.concat([])?.length ? (
             <FlexOneContainer>
-              <StyledSelect
+              <Select
                 isMulti={
                   selectedOperator?.value === 'isAnyOf' ||
                   selectedOperator?.value === 'isNoneOf' ||
@@ -366,10 +288,8 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
                 }
                 isClearable={false}
                 options={
-                  data.columns
-                    .concat(data.extra_columns ?? [])
-                    .find((column: any) => column.id === selectedColumn?.value?.id)?.form_field
-                    ?.options || []
+                  data?.find((column: any) => column.id === selectedColumn?.value?.id)?.options ||
+                  []
                 }
                 value={firstValue}
                 onChange={(e: any) => setFirstValue(e)}

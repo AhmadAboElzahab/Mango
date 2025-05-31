@@ -1,4 +1,5 @@
 import './index.css';
+import { scan } from 'react-scan'; // must be imported before React and React DOM
 
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -16,7 +17,9 @@ declare module '@tanstack/react-router' {
     router: typeof router;
   }
 }
-
+scan({
+  enabled: true,
+});
 const rootElement = document.getElementById('root')!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);

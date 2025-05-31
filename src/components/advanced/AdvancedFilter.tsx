@@ -72,8 +72,6 @@ const AdvancedFilter: React.FC<FilterItemProps> = ({ dataState, value, handleCha
   };
 
   const addItem = (groupId: string) => {
-    console.log('addItem called');
-
     const newItemId = getId();
     const newItem = {
       id: newItemId,
@@ -104,17 +102,25 @@ const AdvancedFilter: React.FC<FilterItemProps> = ({ dataState, value, handleCha
   };
   const addGroup = (groupId: string, level: number) => {
     if (level > 1) return;
+
+    const newGroupId = getId();
+    const newGroup: Group = {
+      id: newGroupId,
+      type: 'GROUP',
+      children: [],
+      conjunction: 'and',
+    };
+
     setRuleset((prevRuleset) => {
       const updatedRuleset = { ...prevRuleset };
       const groupToUpdate = dfs(updatedRuleset, groupId) as Group | null;
 
       if (groupToUpdate && groupToUpdate.type === 'GROUP') {
-        groupToUpdate.children.push({
-          id: getId(),
-          type: 'GROUP',
-          children: [],
-          conjunction: 'and',
-        });
+        const groupExists = groupToUpdate.children.some((child: any) => child.id === newGroupId);
+
+        if (!groupExists) {
+          groupToUpdate.children.push(newGroup);
+        }
       }
 
       return updatedRuleset;
