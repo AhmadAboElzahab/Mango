@@ -4,13 +4,13 @@ import { nanoid } from 'nanoid';
 import React, { useEffect, useState } from 'react';
 import { MoveEvent, ReactSortable } from 'react-sortablejs';
 
-import FilterItem from './FilterItem';
 import Select from 'react-select';
 import ClickAwayListener from 'react-click-away-listener';
 import { Container } from './styles';
 import { Popup } from 'components/UI/Popup';
 import { Icon } from 'components/icons/Icon';
 import { StyledLabel } from 'components/Forms/Login/Login.styles';
+import FilterItem from 'components/Filters/FilterItem';
 
 // Type definitions for Item and Group
 interface Item {
