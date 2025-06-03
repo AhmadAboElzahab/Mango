@@ -61,7 +61,7 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
     const column = data?.find((col: any) => col?.id === item.fieldId);
     return column
       ? {
-          value: { id: column.id, type: column?.type, fieldId: column.id },
+          value: { id: column.id, type: column?.form_field_type, fieldId: column.id },
           columnId: column.id,
           label: column?.label,
           selectOption: column?.options || [],
@@ -212,7 +212,6 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
     ) {
       return;
     }
-
     const updatedItem: Item = {
       ...item,
       columnId: selectedColumn.value.id,
@@ -240,7 +239,6 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
           }))}
           value={selectedColumn as any}
           onChange={(e: any) => {
-            console.log(e);
             setSelectedColumn(e);
             setSelectedOperator(null);
             setSelectedSecondOperator(null);
