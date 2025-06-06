@@ -8,5 +8,10 @@ export default defineConfig({
     react(),
     TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
     tsconfigPaths(),
-  ], 
+  ],
+  server: {
+    proxy: {
+      '/static': 'http://localhost:8080',
+    },
+  },
 });

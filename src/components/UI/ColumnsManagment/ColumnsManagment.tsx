@@ -1,8 +1,8 @@
-import { Icon } from 'components/icons/Icon';
 import React, { useState } from 'react';
 
 import { Popup } from '../Popup/Popup';
 import { StyledColumnsManagmentWrapper, StyledLabel } from './ColumnsManagment.styles';
+import { Icon } from '../Icon/Icon';
 
 interface Column {
   field_key: string;
@@ -26,7 +26,7 @@ const ColumnsManagment: React.FC<ColumnsManagmentProps> = ({ columns, onToggleCo
   return (
     <StyledColumnsManagmentWrapper $active={isOpen}>
       <div onClick={togglePopup}>
-        <Icon name='Filter' width={16} height={16} fill='#1d1f24' />
+        <Icon name='ArrowDown' width={16} height={16} fill='#1d1f24' />
         <StyledLabel>Columns</StyledLabel>
       </div>
 

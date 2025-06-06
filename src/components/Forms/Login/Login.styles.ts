@@ -17,9 +17,10 @@ export const FieldWrapper = styled.div`
 `;
 
 export const StyledLabel = styled.label`
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-  color: #333;
+  margin-left: 0.25rem;
+  font-size: 13px;
+  color: #1d1f24;
+  font-weight: 400;
 `;
 
 export const StyledInput = styled.input`
