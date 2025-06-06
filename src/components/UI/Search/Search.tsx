@@ -27,7 +27,7 @@ const Search: React.FC<SearchProps> = ({ onSearch, searchValue = '' }) => {
 
   return (
     <div>
-      <Icon name='BellSimpleFill' width={16} height={16} fill='#1d1f24' />
+      <Icon name='MagnifyingGlass' width={16} height={16} fill='#1d1f24' />
       <StyledLabel>Search</StyledLabel>
       <input
         value={localValue}

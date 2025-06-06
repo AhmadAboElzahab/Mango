@@ -6,6 +6,7 @@ export const StyledToolbar = styled.div`
   z-index: 7;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   left: 0;
   right: 8px;

@@ -1,3 +1,5 @@
+import { Group } from 'components/Filters/AdvancedFilter/AdvancedFilter.types';
+
 export interface ToolbarProps {
   columns: any[];
   onToggleColumn: (fieldKey: string) => void;
@@ -5,5 +7,5 @@ export interface ToolbarProps {
   formFields?: any[];
   searchValue: string;
   filters?: any;
-  setFilters?: (filters: any) => void;
+  setFilters: (ruleset: Group) => void;
 }

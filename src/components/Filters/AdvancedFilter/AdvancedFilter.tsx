@@ -1,10 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { Popup } from 'components/UI/Popup';
-import { StyledLabel } from 'components/Forms/Login/Login.styles';
 import { FilterItemProps } from '../FilterItem/FilterItem.types';
 import { useAdvancedFilter } from 'hooks/useAdvancedFilters';
 import SortableGroup from './components/SortableGroup';
-import { Container, StyledFilterWrapper } from './AdvancedFilter.styles';
+import { Container, StyledFilterWrapper, StyledLabel } from './AdvancedFilter.styles';
 import { Icon } from 'components/UI/Icon/Icon';
 
 const AdvancedFilter: React.FC<FilterItemProps> = ({ dataState, value, handleChange }) => {

@@ -24,11 +24,9 @@ const ColumnsManagment: React.FC<ColumnsManagmentProps> = ({ columns, onToggleCo
   const closePopup = () => setIsOpen(false);
 
   return (
-    <StyledColumnsManagmentWrapper $active={isOpen}>
-      <div onClick={togglePopup}>
-        <Icon name='ArrowDown' width={16} height={16} fill='#1d1f24' />
-        <StyledLabel>Columns</StyledLabel>
-      </div>
+    <StyledColumnsManagmentWrapper $active={isOpen} onClick={togglePopup}>
+      <Icon name='Eye' width={16} height={16} fill='#1d1f24' />
+      <StyledLabel>Columns</StyledLabel>
 
       <Popup isOpen={isOpen} onClose={closePopup}>
         <div style={{ padding: '12px', minWidth: '220px', maxHeight: '300px', overflowY: 'auto' }}>

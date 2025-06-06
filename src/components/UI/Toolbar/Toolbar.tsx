@@ -9,13 +9,17 @@ import AdvancedFilter from 'components/Filters/AdvancedFilter/AdvancedFilter.tsx
 const Toolbar: React.FC<ToolbarProps> = (props) => {
   return (
     <StyledToolbar>
-      <ColumnsManagment columns={props.columns} onToggleColumn={props.onToggleColumn} />
-      <Search onSearch={props.onSearch} searchValue={props.searchValue} />
-      <AdvancedFilter
-        dataState={props.formFields}
-        handleChange={props.setFilters}
-        value={props.filters}
-      />
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <ColumnsManagment columns={props.columns} onToggleColumn={props.onToggleColumn} />
+        <AdvancedFilter
+          dataState={props.formFields}
+          handleChange={props.setFilters}
+          value={props.filters}
+        />
+      </div>
+      <div>
+        <Search onSearch={props.onSearch} searchValue={props.searchValue} />
+      </div>
     </StyledToolbar>
   );
 };

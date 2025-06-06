@@ -18,7 +18,7 @@ export const StyledFilterWrapper = styled.div<{ $active?: boolean }>`
 `;
 
 export const StyledLabel = styled.span`
-  margin-left: 0.5rem;
+  margin-left: 0.25rem;
   font-size: 13px;
   color: #1d1f24;
   font-weight: 400;
