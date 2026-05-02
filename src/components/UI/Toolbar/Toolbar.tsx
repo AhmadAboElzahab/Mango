@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-
 import ColumnsManagment from '../ColumnsManagment/ColumnsManagment.tsx';
 import { StyledToolbar } from './Toolbar.styles.ts';
 import { ToolbarProps } from './Toolbar.types';
@@ -9,7 +7,7 @@ import AdvancedFilter from 'components/Filters/AdvancedFilter/AdvancedFilter.tsx
 const Toolbar: React.FC<ToolbarProps> = (props) => {
   return (
     <StyledToolbar>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
         <ColumnsManagment columns={props.columns} onToggleColumn={props.onToggleColumn} />
         <AdvancedFilter
           dataState={props.formFields}

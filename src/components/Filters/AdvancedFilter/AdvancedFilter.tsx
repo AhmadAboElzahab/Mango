@@ -25,11 +25,11 @@ const AdvancedFilter: React.FC<FilterItemProps> = ({ dataState, value, handleCha
   const hasChildren = useMemo(() => ruleset?.children?.length > 0, [ruleset?.children?.length]);
 
   return (
-    <StyledFilterWrapper $active={isOpen} onClick={togglePopup}>
+    <StyledFilterWrapper $active={isOpen || hasChildren} onClick={togglePopup}>
       <Icon name='FunnelSimple' width={16} height={16} />
       <StyledLabel>Filter</StyledLabel>
       <Popup isOpen={isOpen} onClose={closePopup}>
-        <Container hasChildren={hasChildren}>
+        <Container hasChildren={hasChildren} onClick={(e) => e.stopPropagation()}>
           <SortableGroup
             group={ruleset}
             level={0}

@@ -13,6 +13,7 @@ import { OnChangeFn } from '@tanstack/react-table';
 const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData, filters, setFilters }) => {
   const [activeTab, setActiveTab] = useState<UserTab>(tabsData.tabs?.[0]);
   const [columns, setColumns] = useState(() => activeTab?.columns ?? []);
+
   const [filtersState, setFiltersState] = useState(
     Object.keys(activeTab?.filters ?? {}).length === 0
       ? { id: nanoid(), type: 'GROUP', conjunction: 'and', children: [] }
@@ -114,7 +115,6 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData, filters,
   // ✅ Ensure memoized filters and columns to prevent unnecessary/stale re-renders
   const memoizedFiltersState = useMemo(() => filtersState, [filtersState]);
   const memoizedColumns = useMemo(() => columns, [columns]);
-
   const queryParams = useMemo(
     () => ({
       tab_id: activeTab?.id ?? 0,
@@ -138,7 +138,7 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData, filters,
 
   const { data, isLoading, isFetching } = usePaginatedModelIndex(queryParams);
   const totalCount = data?.meta?.totalRowCount ?? 0;
-
+  console.log(tabsData);
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <TabsBar tabs={tabsData.tabs} activeTab={activeTab} onTabChange={handleTabChange} />

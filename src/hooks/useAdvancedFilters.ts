@@ -9,7 +9,7 @@ import {
   removeItemById,
   updateConjunctionById,
 } from 'utils/filterUtils';
-import { MAX_NESTING_LEVEL } from 'constants/advancedFilter';
+import { MAX_NESTING_LEVEL } from 'constants/global';
 
 export const useAdvancedFilter = (initialValue: Group, onChange: (ruleset: Group) => void) => {
   const [ruleset, setRuleset] = useState<Group>(initialValue);

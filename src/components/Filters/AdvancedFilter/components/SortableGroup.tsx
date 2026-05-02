@@ -7,7 +7,7 @@ import AddMenu from './AddMenu';
 import FilterItem from 'components/Filters/FilterItem';
 import { Group, Item } from '../AdvancedFilter.types';
 import { getBackgroundColor } from 'utils/filterUtils';
-import { CONJUNCTION_OPTIONS, MAX_NESTING_LEVEL } from 'constants/advancedFilter';
+import { CONJUNCTION_OPTIONS, MAX_NESTING_LEVEL } from 'constants/global';
 
 export interface SortableGroupProps {
   group: Group;
@@ -81,7 +81,7 @@ const SortableGroup: React.FC<SortableGroupProps> = ({
 
   const renderEmptyState = () => {
     if (isRootLevel && hasNoChildren) {
-      return <div>No conditions are applied</div>;
+      return <p>No conditions are applied</p>;
     }
 
     if (hasNoChildren) {

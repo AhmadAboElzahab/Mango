@@ -23,10 +23,9 @@ export const StyledLabel = styled.span`
   color: #1d1f24;
   font-weight: 400;
 `;
-
 export const Container = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'hasChildren',
 })<{ hasChildren: boolean }>`
-  width: ${({ hasChildren }) => (hasChildren ? '70vw' : '600px')};
+  width: ${({ hasChildren }) => (hasChildren ? '70vw' : 'fit-content')};
   position: relative;
 `;

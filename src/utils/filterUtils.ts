@@ -1,6 +1,6 @@
 import { Group } from 'components/Filters/AdvancedFilter/AdvancedFilter.types';
 import { Item } from 'components/Filters/FilterItem/FilterItem.types';
-import { BACKGROUND_COLORS } from 'constants/advancedFilter';
+import { BACKGROUND_COLORS } from 'constants/global';
 import { nanoid } from 'nanoid';
 
 export const generateId = () => nanoid();
