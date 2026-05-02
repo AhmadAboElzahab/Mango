@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import AdvancedFilter from "./AdvancedFilter";
 import { describe, expect, it, vi } from 'vitest';
+
+import AdvancedFilter from "./AdvancedFilter";
 
 describe("AdvancedFilter", () => {
   it("renders the component", () => {

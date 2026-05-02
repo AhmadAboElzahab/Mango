@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import type { OnChangeFn, PaginationState } from '@tanstack/react-table';
 import {
   ColumnDef,
   flexRender,
@@ -6,7 +6,10 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { PAGE_SIZE } from 'core/services/data.service';
 import { generateEditableColumnsFromMeta } from 'core/utils/tableColumnBuilder';
+import React, { useMemo } from 'react';
+
 import {
   FadeTbody,
   SkeletonCell,
@@ -18,9 +21,6 @@ import {
   StyledTh,
 } from './Table.styles';
 import { TableProps } from './Table.types';
-import { PAGE_SIZE } from 'core/services/data.service';
-
-import type { OnChangeFn, PaginationState } from '@tanstack/react-table';
 
 const Table: React.FC<
   TableProps & {

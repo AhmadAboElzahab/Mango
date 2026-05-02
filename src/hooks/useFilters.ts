@@ -1,8 +1,8 @@
 import {
-  RouteIds,
-  RegisteredRouter,
-  SearchParamOptions,
   getRouteApi,
+  RegisteredRouter,
+  RouteIds,
+  SearchParamOptions,
 } from '@tanstack/react-router';
 import { cleanEmptyParams } from 'utils/cleanEmptyParams';
 

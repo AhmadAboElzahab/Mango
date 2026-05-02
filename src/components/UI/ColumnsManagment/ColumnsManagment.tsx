@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
+import { Icon } from '../Icon/Icon';
 import { Popup } from '../Popup/Popup';
 import { StyledColumnsManagmentWrapper, StyledLabel } from './ColumnsManagment.styles';
-import { Icon } from '../Icon/Icon';
 
 interface Column {
   field_key: string;

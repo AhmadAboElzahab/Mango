@@ -1,10 +1,11 @@
-import React, { useState, useMemo } from 'react';
-import { Popup } from 'components/UI/Popup';
-import { FilterItemProps } from '../FilterItem/FilterItem.types';
-import { useAdvancedFilter } from 'hooks/useAdvancedFilters';
-import SortableGroup from './components/SortableGroup';
-import { Container, StyledFilterWrapper, StyledLabel } from './AdvancedFilter.styles';
 import { Icon } from 'components/UI/Icon/Icon';
+import { Popup } from 'components/UI/Popup';
+import { useAdvancedFilter } from 'hooks/useAdvancedFilters';
+import React, { useMemo,useState } from 'react';
+
+import { FilterItemProps } from '../FilterItem/FilterItem.types';
+import { Container, StyledFilterWrapper, StyledLabel } from './AdvancedFilter.styles';
+import SortableGroup from './components/SortableGroup';
 
 const AdvancedFilter: React.FC<FilterItemProps> = ({ dataState, value, handleChange }) => {
   const [isOpen, setIsOpen] = useState(false);

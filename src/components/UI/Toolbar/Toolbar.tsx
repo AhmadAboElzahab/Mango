@@ -1,8 +1,9 @@
+import AdvancedFilter from 'components/Filters/AdvancedFilter/AdvancedFilter.tsx';
+
 import ColumnsManagment from '../ColumnsManagment/ColumnsManagment.tsx';
+import Search from '../Search/Search.tsx';
 import { StyledToolbar } from './Toolbar.styles.ts';
 import { ToolbarProps } from './Toolbar.types';
-import Search from '../Search/Search.tsx';
-import AdvancedFilter from 'components/Filters/AdvancedFilter/AdvancedFilter.tsx';
 
 const Toolbar: React.FC<ToolbarProps> = (props) => {
   return (

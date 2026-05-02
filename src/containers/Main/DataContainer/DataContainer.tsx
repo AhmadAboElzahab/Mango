@@ -1,14 +1,14 @@
-import React, { useCallback, useMemo, useState, useEffect } from 'react';
-import { debounce } from 'lodash';
+import { OnChangeFn } from '@tanstack/react-table';
+import Table from 'components/UI/Table';
 import TabsBar from 'components/UI/TabsBar';
 import Toolbar from 'components/UI/Toolbar';
-import Table from 'components/UI/Table';
+import { PAGE_SIZE, usePaginatedModelIndex } from 'core/services/data.service';
+import { debounce } from 'lodash';
 import { nanoid } from 'nanoid';
-import { usePaginatedModelIndex, PAGE_SIZE } from 'core/services/data.service';
-
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import type { UserTab } from 'types/tabs';
+
 import type { DataContainerProps } from './DataContainer.types';
-import { OnChangeFn } from '@tanstack/react-table';
 
 const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData, filters, setFilters }) => {
   const [activeTab, setActiveTab] = useState<UserTab>(tabsData.tabs?.[0]);
@@ -138,7 +138,6 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData, filters,
 
   const { data, isLoading, isFetching } = usePaginatedModelIndex(queryParams);
   const totalCount = data?.meta?.totalRowCount ?? 0;
-  console.log(tabsData);
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <TabsBar tabs={tabsData.tabs} activeTab={activeTab} onTabChange={handleTabChange} />

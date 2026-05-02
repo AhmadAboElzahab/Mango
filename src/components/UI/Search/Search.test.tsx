@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import Search from "./Search";
 import { describe, expect, it, vi } from 'vitest';
+
+import Search from "./Search";
 
 describe("Search", () => {
   it("renders the component", () => {

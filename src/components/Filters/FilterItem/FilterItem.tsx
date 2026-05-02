@@ -1,31 +1,32 @@
-import { FC, useEffect, useMemo, useState, useCallback } from 'react';
+import { FC, useCallback,useEffect, useMemo, useState } from 'react';
 import Select from 'react-select';
+import { Column } from 'types/formfields';
+import { DateOperators, getOperators } from 'utils/filterOperator';
+
 import {
+  TYPE_CREATABLE_MULTI_SELECT,
+  TYPE_CREATABLE_SINGLE_SELECT,
   TYPE_CURRENCY_FIELD,
   TYPE_DATE_FIELD,
   TYPE_DATETIME_FIELD,
   TYPE_FLOAT_FIELD,
   TYPE_INTEGER_FIELD,
-  TYPE_SINGLE_RELATION,
   TYPE_MULTI_RELATION,
-  TYPE_SINGLE_SELECT,
   TYPE_MULTI_SELECT,
-  TYPE_CREATABLE_SINGLE_SELECT,
-  TYPE_CREATABLE_MULTI_SELECT,
+  TYPE_SINGLE_RELATION,
+  TYPE_SINGLE_SELECT,
 } from '../../../constants/fields';
 import {
   ColumnContainer,
-  OperatorContainer,
   Container,
+  DateInput,
+  NumberInput,
+  OperatorContainer,
   StyledInput,
   StyledSelect,
-  NumberInput,
   ValueContainer,
-  DateInput,
 } from './FilterItem.styles';
-import { DateOperators, getOperators } from 'utils/filterOperator';
 import { FilterItemProps, Item } from './FilterItem.types';
-import { Column } from 'types/formfields';
 
 // Constants
 const MULTI_VALUE_OPERATORS = [

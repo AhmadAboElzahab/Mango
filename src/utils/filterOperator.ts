@@ -1,4 +1,5 @@
 import { Item } from 'components/Filters/FilterItem/FilterItem.types';
+
 import {
   TYPE_CREATABLE_MULTI_SELECT,
   TYPE_CREATABLE_SINGLE_SELECT,

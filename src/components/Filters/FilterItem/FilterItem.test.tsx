@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import FilterItem from './FilterItem';
 import { describe, expect, it, vi } from 'vitest';
+
+import FilterItem from './FilterItem';
 
 describe('FilterItem', () => {
   it('renders the component', () => {
