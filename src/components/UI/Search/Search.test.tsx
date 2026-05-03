@@ -1,11 +1,11 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from 'vitest';
+import { render } from "@testing-library/react";
+import { describe, it, vi } from 'vitest';
 
 import Search from "./Search";
 
 describe("Search", () => {
   it("renders the component", () => {
-    render(<Search />);
+    render(<Search onSearch={vi.fn()} />);
     // Add your tests here
   });
 });

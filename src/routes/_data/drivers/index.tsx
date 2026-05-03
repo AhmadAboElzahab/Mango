@@ -1,6 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router';
-import TabsBar from 'components/UI/TabsBar';
-import Toolbar from 'components/UI/Toolbar';
 
 export const Route = createFileRoute('/_data/drivers/')({
   component: RouteComponent,
@@ -15,8 +13,9 @@ function RouteComponent() {
         flexDirection: 'column',
       }}
     >
-      <TabsBar />
-      <Toolbar />
+      {/* TODO: wire up real data */}
+      {/* <TabsBar tabs={[]} activeTab={...} onTabChange={...} /> */}
+      {/* <Toolbar columns={[]} onToggleColumn={() => {}} onSearch={() => {}} searchValue="" setFilters={() => {}} /> */}
       <div
         style={{
           backgroundColor: '#FBFBFB',

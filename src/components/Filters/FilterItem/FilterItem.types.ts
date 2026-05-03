@@ -1,9 +1,9 @@
-import { Group } from '../AdvancedFilter/AdvancedFilter.types';
+import { Column } from 'types/formfields';
 
 export interface FilterItemProps {
-  dataState: any;
-  value: Group;
-  handleChange: (ruleset: Group) => void;
+  data: Column[];
+  item: Item;
+  onItemChange: (updatedItem: Item) => void;
 }
 export interface Item {
   id: string;

@@ -22,9 +22,15 @@ vi.mock('../TabItem', () => ({
   ),
 }));
 
+const mockTabs = [
+  { id: 1, tab_name: 'Tab 1', model_name: '', is_default: true, search_term: '', filters: {}, columns: [] },
+  { id: 2, tab_name: 'Tab 2', model_name: '', is_default: false, search_term: '', filters: {}, columns: [] },
+  { id: 3, tab_name: 'Tab 3', model_name: '', is_default: false, search_term: '', filters: {}, columns: [] },
+];
+
 describe('TabsBar', () => {
   it('renders the container and tab items', () => {
-    render(<TabsBar  />);
+    render(<TabsBar tabs={mockTabs} activeTab={mockTabs[0]} onTabChange={vi.fn()} />);
 
     // Check the styled container
     expect(screen.getByTestId('styled-tabs-bar')).toBeInTheDocument();

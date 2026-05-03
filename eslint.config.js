@@ -44,6 +44,7 @@ export default tseslint.config(
       'simple-import-sort/exports': 'error',
       'react/no-unstable-nested-components': 'off',
       'react-hooks/exhaustive-deps': 'off', //todo:: should turned on
+      'react/prop-types': 'off',
       'no-useless-escape': 'off',
     },
   },

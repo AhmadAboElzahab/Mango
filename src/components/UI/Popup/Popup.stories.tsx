@@ -11,20 +11,22 @@ export default meta;
 
 type Story = StoryObj<typeof Popup>;
 
+const DefaultRender = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <div style={{ position: 'relative' }}>
+        <button onClick={() => setOpen(true)}>Open Popup</button>
+        <Popup isOpen={open} onClose={() => setOpen(false)}>
+          <div>
+            <p>This is a reusable popup.</p>
+          </div>
+        </Popup>
+      </div>
+    </>
+  );
+};
+
 export const Default: Story = {
-  render: () => {
-    const [open, setOpen] = useState(false);
-    return (
-      <>
-        <div style={{ position: 'relative' }}>
-          <button onClick={() => setOpen(true)}>Open Popup</button>
-          <Popup isOpen={open} onClose={() => setOpen(false)}>
-            <div>
-              <p>This is a reusable popup.</p>
-            </div>
-          </Popup>
-        </div>
-      </>
-    );
-  },
+  render: () => <DefaultRender />,
 };

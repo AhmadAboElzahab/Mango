@@ -2,7 +2,15 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@shared-types/*": ["shared/types/*"]
+      "@shared-types/*": ["./shared/types/*"],
+      "components/*": ["./components/*"],
+      "constants/*": ["./constants/*"],
+      "containers/*": ["./containers/*"],
+      "core/*": ["./core/*"],
+      "hooks/*": ["./hooks/*"],
+      "store/*": ["./store/*"],
+      "types/*": ["./types/*"],
+      "utils/*": ["./utils/*"]
     },
     "types": ["vitest/globals"]
   },

@@ -3,10 +3,10 @@ import { Popup } from 'components/UI/Popup';
 import { useAdvancedFilter } from 'hooks/useAdvancedFilters';
 import React, { useMemo, useState } from 'react';
 
-import { FilterItemProps } from '../FilterItem/FilterItem.types';
 import SortableGroup from './components/SortableGroup';
+import { AdvancedFilterProps } from './AdvancedFilter.types';
 
-const AdvancedFilter: React.FC<FilterItemProps> = ({ dataState, value, handleChange }) => {
+const AdvancedFilter: React.FC<AdvancedFilterProps> = ({ dataState, value, handleChange }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const {

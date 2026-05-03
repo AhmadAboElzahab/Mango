@@ -1,4 +1,8 @@
-export interface AdvancedFilterProps {}
+export interface AdvancedFilterProps {
+  dataState: any;
+  value: Group;
+  handleChange: (ruleset: Group) => void;
+}
 export interface Item {
   id: string;
   type: 'ITEM';

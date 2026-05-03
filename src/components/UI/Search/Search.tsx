@@ -25,19 +25,19 @@ const Search: React.FC<SearchProps> = ({ onSearch, searchValue = '' }) => {
   }, []);
 
   return (
-    <div>
-      <Icon name='MagnifyingGlass' width={16} height={16} fill='#1d1f24' />
-      <span className="ml-2 text-[13px] text-[#1d1f24] font-normal">Search</span>
+    <div className='relative'>
+      <Icon
+        name='MagnifyingGlass'
+        className='absolute top-1/2 -translate-y-1/2 left-2'
+        width={16}
+        height={16}
+        fill='#1d1f24'
+      />
       <input
         value={localValue}
         type='text'
         placeholder='Search...'
-        style={{
-          padding: '8px',
-          borderRadius: '4px',
-          border: '1px solid #ccc',
-          marginLeft: '8px',
-        }}
+        className='pl-8 focus:ring-0 focus:outline-none border border-[#c2c5c8] rounded focus:border-[#1d1f24]'
         onChange={handleInputChange}
       />
     </div>
