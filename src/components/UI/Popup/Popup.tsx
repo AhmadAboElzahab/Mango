@@ -1,8 +1,6 @@
-// Popup.tsx
 import React, { useEffect } from 'react';
 import ClickAwayListener from 'react-click-away-listener';
 
-import * as S from './Popup.styles';
 import { PopupProps } from './Popup.types';
 
 export const Popup: React.FC<PopupProps> = ({ isOpen, onClose, children }) => {
@@ -19,13 +17,16 @@ export const Popup: React.FC<PopupProps> = ({ isOpen, onClose, children }) => {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
     <ClickAwayListener onClickAway={onClose}>
-      <S.PopupWrapper>
-        <S.PopupContainer>{children}</S.PopupContainer>
-      </S.PopupWrapper>
+      <div className="absolute top-[calc(100%+8px)] left-0 z-999">
+        <div className="bg-white px-4 py-3 rounded-sm shadow-[0px_0px_1px_rgba(0,0,0,0.24),0px_0px_2px_rgba(0,0,0,0.16),0px_3px_4px_rgba(0,0,0,0.06),0px_6px_8px_rgba(0,0,0,0.06),0px_12px_16px_rgba(0,0,0,0.08),0px_18px_32px_rgba(0,0,0,0.06)]">
+          {children}
+        </div>
+      </div>
     </ClickAwayListener>
   );
 };

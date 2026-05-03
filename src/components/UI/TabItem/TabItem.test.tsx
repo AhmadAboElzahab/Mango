@@ -1,38 +1,43 @@
 import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import TabItem from './TabItem';
 import { type TabItemProps } from './TabItem.types';
-
-// Mock the styled-components
-vi.mock('./TabItem.styles', () => ({
-  StyledTabItem: ({ children }: { children: React.ReactNode }) => (
-    <div data-testid='styled-tab-item'>{children}</div>
-  ),
-  StyledSpan: ({ children }: { children: React.ReactNode }) => (
-    <span data-testid='styled-span'>{children}</span>
-  ),
-}));
 
 describe('TabItem', () => {
   const setup = (props?: Partial<TabItemProps>) => {
     const defaultProps: TabItemProps = {
       active: false,
+      title: 'Test Tab',
       ...props,
     };
-    render(<TabItem {...defaultProps} />);
+    return render(<TabItem {...defaultProps} />);
   };
 
-  it('renders the styled container', () => {
+  it('renders the tab title', () => {
     setup();
-    expect(screen.getByTestId('styled-tab-item')).toBeInTheDocument();
+    expect(screen.getByText('Test Tab')).toBeInTheDocument();
   });
 
-  it('renders the correct number of spans', () => {
-    setup();
-    const spans = screen.getAllByTestId('styled-span');
-    expect(spans.length).toBeGreaterThan(0);
+  it('applies active class when active', () => {
+    const { container } = setup({ active: true });
+    expect(container.firstChild).toHaveClass('tab-item--active');
+  });
+
+  it('does not apply active class when inactive', () => {
+    const { container } = setup({ active: false });
+    expect(container.firstChild).not.toHaveClass('tab-item--active');
+  });
+
+  it('shows arrow indicator when active', () => {
+    setup({ active: true });
+    expect(screen.getByText('↓')).toBeInTheDocument();
+  });
+
+  it('does not show arrow indicator when inactive', () => {
+    setup({ active: false });
+    expect(screen.queryByText('↓')).not.toBeInTheDocument();
   });
 });

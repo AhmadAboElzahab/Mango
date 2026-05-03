@@ -18,6 +18,7 @@
     "static:fix": "eslint . --fix && prettier --log-level silent --write --ignore-unknown ."
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.2.4",
     "@tanstack/react-form": "^1.9.0",
     "@tanstack/react-query": "^5.75.2",
     "@tanstack/react-query-devtools": "^5.75.2",
@@ -33,7 +34,7 @@
     "react-select": "^5.10.1",
     "react-sortablejs": "^6.1.4",
     "secure-ls": "^2.0.0",
-    "styled-components": "^6.1.17",
+    "tailwindcss": "^4.2.4",
     "vite-tsconfig-paths": "^5.1.4",
     "zod": "^3.24.3",
     "zustand": "^5.0.4"

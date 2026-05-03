@@ -1,10 +1,9 @@
 import { Icon } from 'components/UI/Icon/Icon';
 import { Popup } from 'components/UI/Popup';
 import { useAdvancedFilter } from 'hooks/useAdvancedFilters';
-import React, { useMemo,useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { FilterItemProps } from '../FilterItem/FilterItem.types';
-import { Container, StyledFilterWrapper, StyledLabel } from './AdvancedFilter.styles';
 import SortableGroup from './components/SortableGroup';
 
 const AdvancedFilter: React.FC<FilterItemProps> = ({ dataState, value, handleChange }) => {
@@ -24,13 +23,24 @@ const AdvancedFilter: React.FC<FilterItemProps> = ({ dataState, value, handleCha
   const closePopup = () => setIsOpen(false);
 
   const hasChildren = useMemo(() => ruleset?.children?.length > 0, [ruleset?.children?.length]);
+  const isActive = isOpen || hasChildren;
 
   return (
-    <StyledFilterWrapper $active={isOpen || hasChildren} onClick={togglePopup}>
+    <div
+      className={`relative flex flex-row cursor-pointer rounded-[3px] px-2 py-1 h-fit transition-[background-color] duration-85 ease-in ${
+        isActive
+          ? 'bg-[#FEEAB6] hover:bg-transparent hover:shadow-[inset_0_0_0_2px_rgba(0,0,0,0.1)]'
+          : 'hover:bg-black/5'
+      }`}
+      onClick={togglePopup}
+    >
       <Icon name='FunnelSimple' width={16} height={16} />
-      <StyledLabel>Filter</StyledLabel>
+      <span className="ml-1 text-[13px] text-[#1d1f24] font-normal">Filter</span>
       <Popup isOpen={isOpen} onClose={closePopup}>
-        <Container hasChildren={hasChildren} onClick={(e) => e.stopPropagation()}>
+        <div
+          className={`relative ${hasChildren ? 'w-[70vw]' : 'w-fit'}`}
+          onClick={(e) => e.stopPropagation()}
+        >
           <SortableGroup
             group={ruleset}
             level={0}
@@ -43,9 +53,9 @@ const AdvancedFilter: React.FC<FilterItemProps> = ({ dataState, value, handleCha
             handleUpdateConjunction={handleUpdateConjunction}
             updateItem={updateItem}
           />
-        </Container>
+        </div>
       </Popup>
-    </StyledFilterWrapper>
+    </div>
   );
 };
 

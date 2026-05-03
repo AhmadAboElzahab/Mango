@@ -1,5 +1,5 @@
-import { FC, useCallback,useEffect, useMemo, useState } from 'react';
-import Select from 'react-select';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import Select, { StylesConfig } from 'react-select';
 import { Column } from 'types/formfields';
 import { DateOperators, getOperators } from 'utils/filterOperator';
 
@@ -16,17 +16,18 @@ import {
   TYPE_SINGLE_RELATION,
   TYPE_SINGLE_SELECT,
 } from '../../../constants/fields';
-import {
-  ColumnContainer,
-  Container,
-  DateInput,
-  NumberInput,
-  OperatorContainer,
-  StyledInput,
-  StyledSelect,
-  ValueContainer,
-} from './FilterItem.styles';
 import { FilterItemProps, Item } from './FilterItem.types';
+
+const selectStyles: StylesConfig = {
+  control: (base) => ({
+    ...base,
+    border: '1px solid #d1d5db',
+    borderRadius: '8px',
+  }),
+};
+
+const inputClass =
+  'px-3 py-2 border border-[#d1d5db] rounded-lg outline-none focus:border-[#3b82f6] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)] placeholder:text-[#9ca3af]';
 
 // Constants
 const MULTI_VALUE_OPERATORS = [
@@ -91,7 +92,6 @@ const isDateNumberOperator = (operator: string): boolean =>
   DATE_NUMBER_OPERATORS.includes(operator as any);
 
 const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
-  // State
   const [selectedColumn, setSelectedColumn] = useState<Column | undefined>(() =>
     data.find((col) => col.id === item.fieldId),
   );
@@ -101,7 +101,6 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
   );
   const [firstValue, setFirstValue] = useState<any>(item?.value || '');
 
-  // Memoized values
   const operatorOptions = useMemo(() => {
     if (!item.type || !selectedColumn) return [];
     const hasOptions = !!data?.find((column) => column?.id === item.fieldId)?.options;
@@ -118,7 +117,6 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
     [data],
   );
 
-  // Effects
   useEffect(() => {
     const isValidOperator = operatorOptions.some((op) => op.value === selectedOperator?.value);
     if (!selectedOperator || !isValidOperator) {
@@ -145,7 +143,6 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
     onItemChange(updatedItem);
   }, [selectedColumn, selectedOperator, selectedSecondOperator, firstValue, item, onItemChange]);
 
-  // Event handlers
   const handleColumnChange = useCallback(
     (option: any) => {
       const column = data.find((col) => col.id === option.value);
@@ -178,7 +175,6 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
     }
   }, []);
 
-  // Render methods
   const renderSelectInput = () => (
     <Select
       isMulti={isMultiOperator(selectedOperator?.value)}
@@ -196,25 +192,28 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
 
     return (
       <>
-        <StyledSelect
+        <Select
           isClearable={false}
           options={dateOperators}
           value={selectedSecondOperator}
           onChange={handleSecondOperatorChange}
+          styles={selectStyles}
         />
         {selectedSecondOperator?.value === 'exactDate' && (
-          <DateInput
+          <input
             type='date'
             value={firstValue}
             onChange={(e) => setFirstValue(e.target.value)}
+            className={`flex-1 ${inputClass}`}
           />
         )}
         {isDateNumberOperator(selectedSecondOperator?.value) && (
-          <NumberInput
+          <input
             type='number'
             placeholder='Enter a value'
             value={firstValue}
             onChange={(e) => setFirstValue(e.target.value)}
+            className={inputClass}
           />
         )}
       </>
@@ -222,10 +221,11 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
   };
 
   const renderTextInput = () => (
-    <StyledInput
+    <input
       placeholder='Enter a value'
       value={firstValue}
       onChange={(e) => handleInputChange(e.target.value, selectedColumn?.form_field_type || '')}
+      className={inputClass}
     />
   );
 
@@ -233,22 +233,9 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
     const fieldType = selectedColumn?.form_field_type || '';
     const operatorValue = selectedOperator?.value;
 
-    // Handle empty operators
-    if (isEmptyOperator(operatorValue)) {
-      return null;
-    }
-
-    // Handle select fields
-    if (isSelectOperator(operatorValue) && isSelectFieldType(fieldType)) {
-      return renderSelectInput();
-    }
-
-    // Handle date fields
-    if (isDateFieldType(fieldType)) {
-      return renderDateInput();
-    }
-
-    // Handle text/numeric inputs
+    if (isEmptyOperator(operatorValue)) return null;
+    if (isSelectOperator(operatorValue) && isSelectFieldType(fieldType)) return renderSelectInput();
+    if (isDateFieldType(fieldType)) return renderDateInput();
     return renderTextInput();
   };
 
@@ -256,23 +243,27 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
     ? { value: selectedColumn.id, label: selectedColumn.label }
     : null;
 
-  return (
-    <Container>
-      <ColumnContainer $isCurrency={selectedColumn?.form_field_type === TYPE_CURRENCY_FIELD}>
-        <Select options={fieldOptions} value={selectedColumnOption} onChange={handleColumnChange} />
-      </ColumnContainer>
+  const isCurrency = selectedColumn?.form_field_type === TYPE_CURRENCY_FIELD;
 
-      <OperatorContainer>
+  return (
+    <div className="flex flex-row gap-2 items-center">
+      <div
+        className={`flex-1 ${isCurrency ? 'flex flex-row gap-2 justify-between' : ''}`}
+      >
+        <Select options={fieldOptions} value={selectedColumnOption} onChange={handleColumnChange} />
+      </div>
+
+      <div className="flex-1">
         <Select
           isClearable={false}
           options={operatorOptions}
           value={selectedOperator}
           onChange={handleOperatorChange}
         />
-      </OperatorContainer>
+      </div>
 
-      <ValueContainer>{renderValueInput()}</ValueContainer>
-    </Container>
+      <div className="flex-[1.5] flex gap-2">{renderValueInput()}</div>
+    </div>
   );
 };
 

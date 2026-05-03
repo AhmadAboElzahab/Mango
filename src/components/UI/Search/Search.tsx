@@ -1,9 +1,6 @@
-import './Search.styles.ts';
-
-import React, { useCallback,useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Icon } from '../Icon/Icon.tsx';
-import { StyledLabel } from './Search.styles.ts';
 import { SearchProps } from './Search.types';
 
 const Search: React.FC<SearchProps> = ({ onSearch, searchValue = '' }) => {
@@ -30,7 +27,7 @@ const Search: React.FC<SearchProps> = ({ onSearch, searchValue = '' }) => {
   return (
     <div>
       <Icon name='MagnifyingGlass' width={16} height={16} fill='#1d1f24' />
-      <StyledLabel>Search</StyledLabel>
+      <span className="ml-2 text-[13px] text-[#1d1f24] font-normal">Search</span>
       <input
         value={localValue}
         type='text'

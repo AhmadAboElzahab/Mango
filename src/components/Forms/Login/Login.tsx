@@ -2,7 +2,6 @@ import { AnyFieldApi, useForm } from '@tanstack/react-form';
 import React from 'react';
 import { loginSchema } from 'types/auth';
 
-import { FieldWrapper, FormWrapper, StyledButton, StyledInput, StyledLabel } from './Login.styles';
 import { LoginFormProps } from './Login.types';
 
 function FieldInfo({ field }: { field: AnyFieldApi }) {
@@ -34,7 +33,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   });
 
   return (
-    <FormWrapper
+    <form
+      className="flex flex-col max-w-100 gap-4 mx-auto p-8 bg-[#f9f9f9] rounded-lg"
       onSubmit={(e) => {
         e.preventDefault();
         form.handleSubmit();
@@ -42,9 +42,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
     >
       <form.Field name='email'>
         {(field) => (
-          <FieldWrapper>
-            <StyledLabel htmlFor={field.name}>Email</StyledLabel>
-            <StyledInput
+          <div className="flex flex-col">
+            <label htmlFor={field.name} className="ml-1 text-[13px] text-[#1d1f24] font-normal">
+              Email
+            </label>
+            <input
               id={field.name}
               name={field.name}
               type='email'
@@ -53,16 +55,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 field.handleChange(e.target.value)
               }
+              className="px-[0.8rem] py-[0.6rem] text-base border border-[#ccc] rounded focus:border-[#0070f3] focus:outline-none"
             />
             <FieldInfo field={field} />
-          </FieldWrapper>
+          </div>
         )}
       </form.Field>
       <form.Field name='password'>
         {(field) => (
-          <FieldWrapper>
-            <StyledLabel htmlFor={field.name}>Password</StyledLabel>
-            <StyledInput
+          <div className="flex flex-col">
+            <label htmlFor={field.name} className="ml-1 text-[13px] text-[#1d1f24] font-normal">
+              Password
+            </label>
+            <input
               id={field.name}
               name={field.name}
               type='password'
@@ -71,16 +76,21 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 field.handleChange(e.target.value)
               }
+              className="px-[0.8rem] py-[0.6rem] text-base border border-[#ccc] rounded focus:border-[#0070f3] focus:outline-none"
             />
             <FieldInfo field={field} />
-          </FieldWrapper>
+          </div>
         )}
       </form.Field>
 
-      <StyledButton type='submit' disabled={form.state.isSubmitting}>
+      <button
+        type='submit'
+        disabled={form.state.isSubmitting}
+        className="py-3 text-base bg-[#0070f3] text-white border-none rounded cursor-pointer disabled:bg-[#ccc] disabled:cursor-not-allowed"
+      >
         Login
-      </StyledButton>
-    </FormWrapper>
+      </button>
+    </form>
   );
 };
 

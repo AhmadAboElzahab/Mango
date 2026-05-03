@@ -151,7 +151,7 @@ const DataContainer: React.FC<DataContainerProps> = ({ model, tabsData, filters,
         setFilters={handleAdvancedFiltersChange} // ✅ Debounced advanced filters handler
       />
 
-      <div id='data-container-scroll' style={{ flex: 1, overflowY: 'auto', position: 'relative' }}>
+      <div style={{ background: 'white', flex: 1, overflowY: 'auto', position: 'relative' }}>
         <Table
           data={data?.data}
           isLoading={isLoading}

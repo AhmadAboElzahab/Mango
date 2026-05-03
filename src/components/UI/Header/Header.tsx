@@ -1,11 +1,11 @@
+import { Link } from '@tanstack/react-router';
 import Button from 'components/Input/Button';
 import React from 'react';
 
-import { HeaderWrapper, StyledLink } from './Header.styles';
 import { HeaderProps } from './Header.types';
 
 const Header: React.FC<HeaderProps> = ({ Links, onLogout }) => (
-  <HeaderWrapper>
+  <div className="flex items-center justify-between flex-row gap-2 h-14 pr-4 pl-5">
     <div style={{ display: 'flex', alignItems: 'center', columnGap: '0.5rem' }}>
       <p
         style={{
@@ -17,15 +17,15 @@ const Header: React.FC<HeaderProps> = ({ Links, onLogout }) => (
         logo
       </p>
       {Links.map((link: { to: string; label: string }, index: number) => (
-        <StyledLink key={index} to={link.to}>
+        <Link key={index} to={link.to} className="nav-link">
           {link.label}
-        </StyledLink>
+        </Link>
       ))}
     </div>
     <Button variant='danger' onClick={onLogout}>
       log out
     </Button>
-  </HeaderWrapper>
+  </div>
 );
 
 export default Header;

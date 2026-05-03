@@ -1,12 +1,11 @@
 import React from 'react';
 
 import TabItem from '../TabItem';
-import { StyledTabsBar } from './TabsBar.styles.ts';
 import { TabsBarProps } from './TabsBar.types.ts';
 
 const TabsBar: React.FC<TabsBarProps> = ({ tabs, activeTab, onTabChange }) => {
   return (
-    <StyledTabsBar>
+    <div className="tabs-bar bg-black/10 transition-[width] duration-300 ease-in-out flex flex-row h-8 rounded-tr-md relative pl-3">
       {tabs.map((tab) => (
         <TabItem
           key={tab.id}
@@ -15,7 +14,7 @@ const TabsBar: React.FC<TabsBarProps> = ({ tabs, activeTab, onTabChange }) => {
           onClick={() => onTabChange(tab)}
         />
       ))}
-    </StyledTabsBar>
+    </div>
   );
 };
 

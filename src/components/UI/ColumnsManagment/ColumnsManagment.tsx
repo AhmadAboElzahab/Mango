@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { Icon } from '../Icon/Icon';
 import { Popup } from '../Popup/Popup';
-import { StyledColumnsManagmentWrapper, StyledLabel } from './ColumnsManagment.styles';
 
 interface Column {
   field_key: string;
@@ -24,9 +23,16 @@ const ColumnsManagment: React.FC<ColumnsManagmentProps> = ({ columns, onToggleCo
   const closePopup = () => setIsOpen(false);
 
   return (
-    <StyledColumnsManagmentWrapper $active={isOpen} onClick={togglePopup}>
+    <div
+      className={`relative flex flex-row cursor-pointer rounded-[3px] px-2 py-1 h-fit transition-[background-color] duration-85 ease-in ${
+        isOpen
+          ? 'bg-[#cff5d1] hover:bg-transparent hover:shadow-[inset_0_0_0_2px_rgba(0,0,0,0.1)]'
+          : 'hover:bg-black/5'
+      }`}
+      onClick={togglePopup}
+    >
       <Icon name='Eye' width={16} height={16} fill='#1d1f24' />
-      <StyledLabel>Columns</StyledLabel>
+      <span className="ml-1 text-[13px] text-[#1d1f24] font-normal">Columns</span>
 
       <Popup isOpen={isOpen} onClose={closePopup}>
         <div style={{ padding: '12px', minWidth: '220px', maxHeight: '300px', overflowY: 'auto' }}>
@@ -57,7 +63,7 @@ const ColumnsManagment: React.FC<ColumnsManagmentProps> = ({ columns, onToggleCo
           </div>
         </div>
       </Popup>
-    </StyledColumnsManagmentWrapper>
+    </div>
   );
 };
 
