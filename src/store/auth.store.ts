@@ -1,10 +1,12 @@
 // stores/authStore.ts
-import SecureLS from 'secure-ls';
-import type { User } from 'types/user';
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import SecureLSImport from "secure-ls";
+import type { User } from "types/user";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-const ls = new SecureLS({ encodingType: 'aes' });
+// Handle CJS default export in Vite
+const SecureLS = (SecureLSImport as any).default || SecureLSImport;
+const ls = new SecureLS({ encodingType: "aes" });
 
 interface AuthState {
   user: User | null;
@@ -20,7 +22,7 @@ export const useAuthStore = create<AuthState>()(
       logout: () => set({ user: null }),
     }),
     {
-      name: 'auth-storage',
+      name: "auth-storage",
       storage: {
         getItem: (key) => ls.get(key),
         setItem: (key, value) => ls.set(key, value),

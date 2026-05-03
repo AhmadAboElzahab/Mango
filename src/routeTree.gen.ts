@@ -8,222 +8,113 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthRouteRouteImport } from './routes/auth/route'
+import { Route as DataRouteRouteImport } from './routes/_data/route'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthIndexRouteImport } from './routes/auth/index'
+import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as DataNaniesIndexRouteImport } from './routes/_data/nanies/index'
+import { Route as DataMaidsIndexRouteImport } from './routes/_data/maids/index'
+import { Route as DataDriversIndexRouteImport } from './routes/_data/drivers/index'
 
-import { Route as rootRoute } from './routes/__root';
-import { Route as DataDriversIndexImport } from './routes/_data/drivers/index';
-import { Route as DataMaidsIndexImport } from './routes/_data/maids/index';
-import { Route as DataNaniesIndexImport } from './routes/_data/nanies/index';
-import { Route as DataRouteImport } from './routes/_data/route';
-import { Route as AboutImport } from './routes/about';
-import { Route as AuthIndexImport } from './routes/auth/index';
-import { Route as AuthLoginImport } from './routes/auth/login';
-import { Route as AuthRouteImport } from './routes/auth/route';
-import { Route as IndexImport } from './routes/index';
-
-// Create/Update Routes
-
-const AboutRoute = AboutImport.update({
+const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
-  getParentRoute: () => rootRoute,
-} as any);
-
-const AuthRouteRoute = AuthRouteImport.update({
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/auth',
   path: '/auth',
-  getParentRoute: () => rootRoute,
-} as any);
-
-const DataRouteRoute = DataRouteImport.update({
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DataRouteRoute = DataRouteRouteImport.update({
   id: '/_data',
-  getParentRoute: () => rootRoute,
-} as any);
-
-const IndexRoute = IndexImport.update({
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any);
-
-const AuthIndexRoute = AuthIndexImport.update({
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthRouteRoute,
-} as any);
-
-const AuthLoginRoute = AuthLoginImport.update({
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
-} as any);
-
-const DataNaniesIndexRoute = DataNaniesIndexImport.update({
+} as any)
+const DataNaniesIndexRoute = DataNaniesIndexRouteImport.update({
   id: '/nanies/',
   path: '/nanies/',
   getParentRoute: () => DataRouteRoute,
-} as any);
-
-const DataMaidsIndexRoute = DataMaidsIndexImport.update({
+} as any)
+const DataMaidsIndexRoute = DataMaidsIndexRouteImport.update({
   id: '/maids/',
   path: '/maids/',
   getParentRoute: () => DataRouteRoute,
-} as any);
-
-const DataDriversIndexRoute = DataDriversIndexImport.update({
+} as any)
+const DataDriversIndexRoute = DataDriversIndexRouteImport.update({
   id: '/drivers/',
   path: '/drivers/',
   getParentRoute: () => DataRouteRoute,
-} as any);
-
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/_data': {
-      id: '/_data';
-      path: '';
-      fullPath: '';
-      preLoaderRoute: typeof DataRouteImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/auth': {
-      id: '/auth';
-      path: '/auth';
-      fullPath: '/auth';
-      preLoaderRoute: typeof AuthRouteImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/about': {
-      id: '/about';
-      path: '/about';
-      fullPath: '/about';
-      preLoaderRoute: typeof AboutImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/auth/login': {
-      id: '/auth/login';
-      path: '/login';
-      fullPath: '/auth/login';
-      preLoaderRoute: typeof AuthLoginImport;
-      parentRoute: typeof AuthRouteImport;
-    };
-    '/auth/': {
-      id: '/auth/';
-      path: '/';
-      fullPath: '/auth/';
-      preLoaderRoute: typeof AuthIndexImport;
-      parentRoute: typeof AuthRouteImport;
-    };
-    '/_data/drivers/': {
-      id: '/_data/drivers/';
-      path: '/drivers';
-      fullPath: '/drivers';
-      preLoaderRoute: typeof DataDriversIndexImport;
-      parentRoute: typeof DataRouteImport;
-    };
-    '/_data/maids/': {
-      id: '/_data/maids/';
-      path: '/maids';
-      fullPath: '/maids';
-      preLoaderRoute: typeof DataMaidsIndexImport;
-      parentRoute: typeof DataRouteImport;
-    };
-    '/_data/nanies/': {
-      id: '/_data/nanies/';
-      path: '/nanies';
-      fullPath: '/nanies';
-      preLoaderRoute: typeof DataNaniesIndexImport;
-      parentRoute: typeof DataRouteImport;
-    };
-  }
-}
-
-// Create and export the route tree
-
-interface DataRouteRouteChildren {
-  DataDriversIndexRoute: typeof DataDriversIndexRoute;
-  DataMaidsIndexRoute: typeof DataMaidsIndexRoute;
-  DataNaniesIndexRoute: typeof DataNaniesIndexRoute;
-}
-
-const DataRouteRouteChildren: DataRouteRouteChildren = {
-  DataDriversIndexRoute: DataDriversIndexRoute,
-  DataMaidsIndexRoute: DataMaidsIndexRoute,
-  DataNaniesIndexRoute: DataNaniesIndexRoute,
-};
-
-const DataRouteRouteWithChildren = DataRouteRoute._addFileChildren(DataRouteRouteChildren);
-
-interface AuthRouteRouteChildren {
-  AuthLoginRoute: typeof AuthLoginRoute;
-  AuthIndexRoute: typeof AuthIndexRoute;
-}
-
-const AuthRouteRouteChildren: AuthRouteRouteChildren = {
-  AuthLoginRoute: AuthLoginRoute,
-  AuthIndexRoute: AuthIndexRoute,
-};
-
-const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(AuthRouteRouteChildren);
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute;
-  '': typeof DataRouteRouteWithChildren;
-  '/auth': typeof AuthRouteRouteWithChildren;
-  '/about': typeof AboutRoute;
-  '/auth/login': typeof AuthLoginRoute;
-  '/auth/': typeof AuthIndexRoute;
-  '/drivers': typeof DataDriversIndexRoute;
-  '/maids': typeof DataMaidsIndexRoute;
-  '/nanies': typeof DataNaniesIndexRoute;
+  '/': typeof IndexRoute
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/about': typeof AboutRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/': typeof AuthIndexRoute
+  '/drivers/': typeof DataDriversIndexRoute
+  '/maids/': typeof DataMaidsIndexRoute
+  '/nanies/': typeof DataNaniesIndexRoute
 }
-
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute;
-  '': typeof DataRouteRouteWithChildren;
-  '/about': typeof AboutRoute;
-  '/auth/login': typeof AuthLoginRoute;
-  '/auth': typeof AuthIndexRoute;
-  '/drivers': typeof DataDriversIndexRoute;
-  '/maids': typeof DataMaidsIndexRoute;
-  '/nanies': typeof DataNaniesIndexRoute;
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth': typeof AuthIndexRoute
+  '/drivers': typeof DataDriversIndexRoute
+  '/maids': typeof DataMaidsIndexRoute
+  '/nanies': typeof DataNaniesIndexRoute
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  '/': typeof IndexRoute;
-  '/_data': typeof DataRouteRouteWithChildren;
-  '/auth': typeof AuthRouteRouteWithChildren;
-  '/about': typeof AboutRoute;
-  '/auth/login': typeof AuthLoginRoute;
-  '/auth/': typeof AuthIndexRoute;
-  '/_data/drivers/': typeof DataDriversIndexRoute;
-  '/_data/maids/': typeof DataMaidsIndexRoute;
-  '/_data/nanies/': typeof DataNaniesIndexRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/_data': typeof DataRouteRouteWithChildren
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/about': typeof AboutRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/': typeof AuthIndexRoute
+  '/_data/drivers/': typeof DataDriversIndexRoute
+  '/_data/maids/': typeof DataMaidsIndexRoute
+  '/_data/nanies/': typeof DataNaniesIndexRoute
 }
-
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | ''
     | '/auth'
     | '/about'
     | '/auth/login'
     | '/auth/'
+    | '/drivers/'
+    | '/maids/'
+    | '/nanies/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/about'
+    | '/auth/login'
+    | '/auth'
     | '/drivers'
     | '/maids'
-    | '/nanies';
-  fileRoutesByTo: FileRoutesByTo;
-  to: '/' | '' | '/about' | '/auth/login' | '/auth' | '/drivers' | '/maids' | '/nanies';
+    | '/nanies'
   id:
     | '__root__'
     | '/'
@@ -234,81 +125,120 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/_data/drivers/'
     | '/_data/maids/'
-    | '/_data/nanies/';
-  fileRoutesById: FileRoutesById;
+    | '/_data/nanies/'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  DataRouteRoute: typeof DataRouteRouteWithChildren
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
 }
 
-export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  DataRouteRoute: typeof DataRouteRouteWithChildren;
-  AuthRouteRoute: typeof AuthRouteRouteWithChildren;
-  AboutRoute: typeof AboutRoute;
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_data': {
+      id: '/_data'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof DataRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/': {
+      id: '/auth/'
+      path: '/'
+      fullPath: '/auth/'
+      preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_data/nanies/': {
+      id: '/_data/nanies/'
+      path: '/nanies'
+      fullPath: '/nanies/'
+      preLoaderRoute: typeof DataNaniesIndexRouteImport
+      parentRoute: typeof DataRouteRoute
+    }
+    '/_data/maids/': {
+      id: '/_data/maids/'
+      path: '/maids'
+      fullPath: '/maids/'
+      preLoaderRoute: typeof DataMaidsIndexRouteImport
+      parentRoute: typeof DataRouteRoute
+    }
+    '/_data/drivers/': {
+      id: '/_data/drivers/'
+      path: '/drivers'
+      fullPath: '/drivers/'
+      preLoaderRoute: typeof DataDriversIndexRouteImport
+      parentRoute: typeof DataRouteRoute
+    }
+  }
 }
+
+interface DataRouteRouteChildren {
+  DataDriversIndexRoute: typeof DataDriversIndexRoute
+  DataMaidsIndexRoute: typeof DataMaidsIndexRoute
+  DataNaniesIndexRoute: typeof DataNaniesIndexRoute
+}
+
+const DataRouteRouteChildren: DataRouteRouteChildren = {
+  DataDriversIndexRoute: DataDriversIndexRoute,
+  DataMaidsIndexRoute: DataMaidsIndexRoute,
+  DataNaniesIndexRoute: DataNaniesIndexRoute,
+}
+
+const DataRouteRouteWithChildren = DataRouteRoute._addFileChildren(
+  DataRouteRouteChildren,
+)
+
+interface AuthRouteRouteChildren {
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthIndexRoute: typeof AuthIndexRoute
+}
+
+const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthLoginRoute: AuthLoginRoute,
+  AuthIndexRoute: AuthIndexRoute,
+}
+
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DataRouteRoute: DataRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   AboutRoute: AboutRoute,
-};
-
-export const routeTree = rootRoute
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/",
-        "/_data",
-        "/auth",
-        "/about"
-      ]
-    },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/_data": {
-      "filePath": "_data/route.tsx",
-      "children": [
-        "/_data/drivers/",
-        "/_data/maids/",
-        "/_data/nanies/"
-      ]
-    },
-    "/auth": {
-      "filePath": "auth/route.tsx",
-      "children": [
-        "/auth/login",
-        "/auth/"
-      ]
-    },
-    "/about": {
-      "filePath": "about.tsx"
-    },
-    "/auth/login": {
-      "filePath": "auth/login.tsx",
-      "parent": "/auth"
-    },
-    "/auth/": {
-      "filePath": "auth/index.tsx",
-      "parent": "/auth"
-    },
-    "/_data/drivers/": {
-      "filePath": "_data/drivers/index.tsx",
-      "parent": "/_data"
-    },
-    "/_data/maids/": {
-      "filePath": "_data/maids/index.tsx",
-      "parent": "/_data"
-    },
-    "/_data/nanies/": {
-      "filePath": "_data/nanies/index.tsx",
-      "parent": "/_data"
-    }
-  }
 }
-ROUTE_MANIFEST_END */
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()

@@ -1,19 +1,20 @@
-import tailwindcss from '@tailwindcss/vite';
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
-import react from '@vitejs/plugin-react-swc';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { defineConfig } from 'vitest/config';
+import tailwindcss from "@tailwindcss/vite";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import react from "@vitejs/plugin-react-swc";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   plugins: [
     tailwindcss(),
+    TanStackRouterVite({ target: "react", autoCodeSplitting: true }),
     react(),
-    TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
-    tsconfigPaths(),
   ],
+  resolve: {
+    tsconfigPaths: true,
+  },
   server: {
     proxy: {
-      '/static': 'http://localhost:8080',
+      "/static": "http://localhost:8080",
     },
   },
 });
