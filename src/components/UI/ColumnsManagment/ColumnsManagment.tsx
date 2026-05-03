@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import { Icon } from "../Icon/Icon";
 import { Popup } from "../Popup/Popup";
+import { capitalizeWords } from "helpers/string";
 
 interface Column {
   field_key: string;
@@ -70,10 +71,7 @@ const ColumnsManagment: React.FC<ColumnsManagmentProps> = ({
                   }}
                   style={{ marginRight: "8px" }}
                 />
-                {field_key
-                  .split("_")
-                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                  .join(" ")}
+                {capitalizeWords(field_key)}
               </label>
             ))}
           </div>

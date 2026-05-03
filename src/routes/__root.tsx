@@ -1,11 +1,14 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import HeaderContainer from "containers/HeaderContainer";
 
 export const Route = createRootRoute({
+  defaultPendingMs: 0,
+
   component: () => (
     <>
       <Outlet />
-      <TanStackRouterDevtools position='top-right' />
+      <TanStackRouterDevtools position="top-right" />
     </>
   ),
   notFoundComponent: () => <div>404 Not Found</div>,

@@ -1,6 +1,6 @@
-import { useAuth } from 'hooks/useAuth';
+import { useAuth } from "hooks/useAuth";
 
-import Header from '../components/UI/Header';
+import Header from "../components/UI/Header";
 
 export default function HeaderContainer() {
   const { logout } = useAuth();
@@ -8,9 +8,8 @@ export default function HeaderContainer() {
     <div>
       <Header
         Links={[
-          { to: '/drivers', label: 'drivers' },
-          { to: '/maids', label: 'maids' },
-          { to: '/nanies', label: 'nanies' },
+          { to: "/", label: "dashboard" },
+          { to: "/maids", label: "maids" },
         ]}
         onLogout={() => {
           logout();

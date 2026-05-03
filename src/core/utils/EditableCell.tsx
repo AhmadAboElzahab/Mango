@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import Select from 'react-select';
-import type { FormField } from 'types/tabs';
+import { useState } from "react";
+import Select from "react-select";
+import type { FormField } from "types/tabs";
 
 interface SelectOption {
   value: string | number;
@@ -14,7 +14,12 @@ export interface EditableCellProps {
   updateRow: (rowIndex: number, field: string, value: any) => void;
 }
 
-const EditableCell = ({ initialValue, field, rowIndex, updateRow }: EditableCellProps) => {
+const EditableCell = ({
+  initialValue,
+  field,
+  rowIndex,
+  updateRow,
+}: EditableCellProps) => {
   const [value, setValue] = useState<any>(initialValue);
 
   const onBlur = () => {
@@ -27,18 +32,20 @@ const EditableCell = ({ initialValue, field, rowIndex, updateRow }: EditableCell
       label: opt.label,
     })) ?? [];
 
-  const isMulti = field.form_field_type === 'multi_relation';
+  const isMulti = field.form_field_type === "multi_relation";
 
   if (
-    field.form_field_type === 'single_select' ||
-    field.form_field_type === 'single_relation' ||
-    field.form_field_type === 'multi_relation'
+    field.form_field_type === "single_select" ||
+    field.form_field_type === "single_relation" ||
+    field.form_field_type === "multi_relation"
   ) {
     let selectedValue: SelectOption | SelectOption[] | null = null;
 
     if (isMulti && Array.isArray(value)) {
       selectedValue = value
-        .map((v) => options.find((opt) => opt.value === (v?.value ?? v?.ID ?? v)))
+        .map((v) =>
+          options.find((opt) => opt.value === (v?.value ?? v?.ID ?? v)),
+        )
         .filter(Boolean) as SelectOption[];
     } else {
       const val = value?.value ?? value?.ID ?? value;
@@ -54,16 +61,29 @@ const EditableCell = ({ initialValue, field, rowIndex, updateRow }: EditableCell
           setValue(selected);
           updateRow(rowIndex, field.field_key.toLowerCase(), selected);
         }}
+        components={{
+          IndicatorSeparator: () => null,
+        }}
         onBlur={onBlur}
         menuPortalTarget={document.body}
-        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-        isClearable
+        styles={{
+          control: (base) => ({
+            ...base,
+            border: "none",
+          }),
+          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+        }}
+        isClearable={false}
       />
     );
   }
 
   return (
-    <input value={String(value ?? '')} onChange={(e) => setValue(e.target.value)} onBlur={onBlur} />
+    <input
+      value={String(value ?? "")}
+      onChange={(e) => setValue(e.target.value)}
+      onBlur={onBlur}
+    />
   );
 };
 
