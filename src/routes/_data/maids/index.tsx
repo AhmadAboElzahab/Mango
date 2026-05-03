@@ -5,11 +5,14 @@ import { fetchTabs, useTabs } from 'core/services/tabs.service';
 import { useFilters } from 'hooks/useFilters';
 
 export const Route = createFileRoute('/_data/maids/')({
-  loader: () =>
-    queryClient.ensureQueryData({
+  loader: () => {
+    // Fire and forget — starts the fetch during navigation without blocking it
+    queryClient.prefetchQuery({
       queryKey: ['tabs', 'Maid'],
       queryFn: () => fetchTabs('Maid'),
-    }),
+      staleTime: 5 * 60 * 1000,
+    });
+  },
   component: RouteComponent,
   // validateSearch: (search) => pageSearchSchema.parse(search),
 });

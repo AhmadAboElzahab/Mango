@@ -1,10 +1,14 @@
-import type React from 'react';
+import type React from "react";
 
-import type { IconProps } from './Icon.types';
+import type { IconProps } from "./Icon.types";
 
 export const Icon: React.FC<IconProps> = (props) => {
   return (
-    <svg {...props} viewBox='0 0 16 16' style={{ shapeRendering: 'geometricPrecision' }}>
+    <svg
+      {...props}
+      viewBox="0 0 16 16"
+      style={{ shapeRendering: "geometricPrecision" }}
+    >
       <use href={`icons.svg#${props.name}`}></use>
     </svg>
   );

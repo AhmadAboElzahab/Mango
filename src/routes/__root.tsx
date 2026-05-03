@@ -8,7 +8,7 @@ export const Route = createRootRoute({
   component: () => (
     <>
       <Outlet />
-      <TanStackRouterDevtools position="top-right" />
+      <TanStackRouterDevtools position="bottom-right" />
     </>
   ),
   notFoundComponent: () => <div>404 Not Found</div>,

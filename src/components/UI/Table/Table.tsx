@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { PAGE_SIZE } from "core/services/data.service";
 import { generateEditableColumnsFromMeta } from "core/utils/tableColumnBuilder";
 import type { TableProps } from "./Table.types";
-import { nanoid } from "nanoid";
 import type { PaginationState, OnChangeFn } from "@tanstack/react-table";
 import {
   type ColumnDef,
@@ -11,6 +10,8 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+
+const SKELETON_ROWS = ["s0","s1","s2","s3","s4","s5","s6","s7","s8","s9"];
 
 const Table: React.FC<
   TableProps & {
@@ -97,11 +98,11 @@ const Table: React.FC<
 
           {isLoading ? (
             <tbody className="opacity-100 pointer-events-auto relative transition-opacity duration-400 ease-[ease]">
-              {Array.from({ length: 10 }).map((_) => (
-                <tr key={`row-${nanoid()}`}>
+              {SKELETON_ROWS.map((rowId) => (
+                <tr key={rowId}>
                   {columns.map((cell) => (
                     <td
-                      key={cell.id}
+                      key={`${rowId}-${cell.id}`}
                       className="data-cell relative p-0 h-8 border-b border-[hsl(202,10%,88%)] border-l first:border-l-0 nth-2:border-l-0"
                     >
                       <div className="skeleton-cell" />

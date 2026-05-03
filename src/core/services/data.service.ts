@@ -37,5 +37,6 @@ export function usePaginatedModelIndex(params: Omit<IndexQueryParams, 'size'>) {
       };
     },
     placeholderData: keepPreviousData,
+    staleTime: 5 * 60 * 1000,
   });
 }
