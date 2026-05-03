@@ -1,17 +1,16 @@
-import type { OnChangeFn, PaginationState } from '@tanstack/react-table';
+import { useMemo } from "react";
+import { PAGE_SIZE } from "core/services/data.service";
+import { generateEditableColumnsFromMeta } from "core/utils/tableColumnBuilder";
+import type { TableProps } from "./Table.types";
+import { nanoid } from "nanoid";
+import type { PaginationState, OnChangeFn } from "@tanstack/react-table";
 import {
   type ColumnDef,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
-} from '@tanstack/react-table';
-import { PAGE_SIZE } from 'core/services/data.service';
-import { generateEditableColumnsFromMeta } from 'core/utils/tableColumnBuilder';
-import type React from 'react';
-import { useMemo } from 'react';
-
-import type { TableProps } from './Table.types';
+} from "@tanstack/react-table";
 
 const Table: React.FC<
   TableProps & {
@@ -19,20 +18,32 @@ const Table: React.FC<
     pagination: PaginationState;
     setPagination: OnChangeFn<PaginationState>;
   }
-> = ({ data, formFields, activeTabColumns, isLoading, totalCount, pagination, setPagination }) => {
+> = ({
+  data,
+  formFields,
+  activeTabColumns,
+  isLoading,
+  totalCount,
+  pagination,
+  setPagination,
+}) => {
   const columns = useMemo<ColumnDef<any>[]>(
     () => [
       {
-        id: 'index',
-        header: '',
-        size: 236,
+        id: "index",
+        header: "",
+        // Removed: size: 236
         cell: ({ row }) => (
-          <div className='flex items-center justify-center h-full min-w-9 max-w-9 p-0'>
+          <div className="flex items-center justify-center h-full min-w-9 p-0">
             {row.index + 1}
           </div>
         ),
       },
-      ...generateEditableColumnsFromMeta(formFields, activeTabColumns, () => {}),
+      ...generateEditableColumnsFromMeta(
+        formFields,
+        activeTabColumns,
+        () => {},
+      ),
     ],
     [formFields, activeTabColumns],
   );
@@ -42,39 +53,41 @@ const Table: React.FC<
     columns,
     manualPagination: true,
     pageCount: Math.ceil(totalCount / PAGE_SIZE),
-    state: {
-      pagination,
-    },
+    state: { pagination },
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    // Optional: remove getPaginationRowModel since you use manualPagination
   });
 
   return (
     <div
       style={{
-        height: '100%',
+        height: "100%",
         minHeight: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        background: 'green',
+        display: "flex",
+        flexDirection: "column",
+        background: "green",
       }}
     >
-      <div className='w-full overflow-visible bg-white'>
-        <table className='w-full text-[13px] bg-white border-spacing-0 table-fixed'>
-          <thead style={{ position: 'sticky', top: 0, zIndex: 2 }}>
+      <div className="w-full overflow-visible bg-white">
+        {/* Removed table-fixed; default is table-layout: auto */}
+        <table className="w-full text-[13px] bg-white border-spacing-0">
+          <thead style={{ position: "sticky", top: 0, zIndex: 2 }}>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    style={{ width: header.getSize() }}
-                    className='text-left text-[rgb(29,31,37)] bg-[#f4f4f4] border-b border-b-[hsl(0,0%,82%)] border-l border-l-[hsl(202,10%,88%)] pt-px pl-2.5 font-normal h-7.75 whitespace-nowrap first:border-l-0 first:text-center nth-2:border-l-0'
+                    // Removed: style={{ width: header.getSize() }}
+                    className="text-left text-[rgb(29,31,37)] bg-[#f4f4f4] border-b border-b-[hsl(0,0%,82%)] border-l border-l-[hsl(202,10%,88%)] pt-px pl-2.5 font-normal h-7.75 whitespace-nowrap first:border-l-0 first:text-center nth-2:border-l-0"
                   >
                     {isLoading ? (
-                      <div className='skeleton-header' />
+                      <div className="skeleton-header" />
                     ) : (
-                      flexRender(header.column.columnDef.header, header.getContext())
+                      flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )
                     )}
                   </th>
                 ))}
@@ -83,30 +96,33 @@ const Table: React.FC<
           </thead>
 
           {isLoading ? (
-            <tbody className='opacity-100 pointer-events-auto relative transition-opacity duration-400 ease-[ease]'>
-              {Array.from({ length: 10 }).map((_, rowIndex) => (
-                <tr key={rowIndex}>
+            <tbody className="opacity-100 pointer-events-auto relative transition-opacity duration-400 ease-[ease]">
+              {Array.from({ length: 10 }).map((_) => (
+                <tr key={`row-${nanoid()}`}>
                   {columns.map((cell) => (
                     <td
                       key={cell.id}
-                      className='data-cell relative p-0 h-8 border-b border-[hsl(202,10%,88%)] border-l first:border-l-0 first:w-9 first:max-w-9 nth-2:border-l-0'
+                      className="data-cell relative p-0 h-8 border-b border-[hsl(202,10%,88%)] border-l first:border-l-0 nth-2:border-l-0"
                     >
-                      <div className='skeleton-cell' />
+                      <div className="skeleton-cell" />
                     </td>
                   ))}
                 </tr>
               ))}
             </tbody>
           ) : (
-            <tbody className='opacity-100 pointer-events-auto relative transition-opacity duration-400 ease-[ease]'>
+            <tbody className="opacity-100 pointer-events-auto relative transition-opacity duration-400 ease-[ease]">
               {table.getRowModel().rows.map((row) => (
                 <tr key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <td
                       key={cell.id}
-                      className='data-cell relative p-0 h-8 border-b border-[hsl(202,10%,88%)] border-l first:border-l-0 first:w-9 first:max-w-9 nth-2:border-l-0'
+                      className="data-cell relative p-0 h-8 border-b border-[hsl(202,10%,88%)] border-l first:border-l-0 nth-2:border-l-0"
                     >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
                     </td>
                   ))}
                 </tr>
@@ -116,28 +132,39 @@ const Table: React.FC<
         </table>
       </div>
 
+      {/* Pagination footer remains unchanged */}
       <div
         style={{
-          padding: '8px',
-          background: 'red',
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '12px',
+          padding: "8px",
+          background: "red",
+          display: "flex",
+          justifyContent: "center",
+          gap: "12px",
           flexShrink: 0,
         }}
       >
-        <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+        <button
+          type="button"
+          name="Previous"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
           Previous
         </button>
         <span>
-          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+          Page {table.getState().pagination.pageIndex + 1} of{" "}
+          {table.getPageCount()}
         </span>
-        <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+        <button
+          type="button"
+          name="Next"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
           Next
         </button>
       </div>
     </div>
   );
 };
-
 export default Table;
