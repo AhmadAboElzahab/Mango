@@ -1,5 +1,5 @@
-import React from 'react';
-import { LoginValues } from 'types/auth';
+import type React from 'react';
+import type { LoginValues } from 'types/auth';
 
 import LoginForm from '../../../components/Forms/Login/Login';
 import { useLoginMutation } from '../../../core/services/auth.service';

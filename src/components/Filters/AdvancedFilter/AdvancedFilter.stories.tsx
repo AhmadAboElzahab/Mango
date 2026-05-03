@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import AdvancedFilter from "./AdvancedFilter";
+import AdvancedFilter from './AdvancedFilter';
 
 const meta: Meta<typeof AdvancedFilter> = {
-  title: "Filters/AdvancedFilter",
+  title: 'Filters/AdvancedFilter',
   component: AdvancedFilter,
 };
 

@@ -1,6 +1,6 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import Select, { StylesConfig } from 'react-select';
-import { Column } from 'types/formfields';
+import { type FC, useCallback, useEffect, useMemo, useState } from 'react';
+import Select, { type StylesConfig } from 'react-select';
+import type { Column } from 'types/formfields';
 import { DateOperators, getOperators } from 'utils/filterOperator';
 
 import {
@@ -16,7 +16,7 @@ import {
   TYPE_SINGLE_RELATION,
   TYPE_SINGLE_SELECT,
 } from '../../../constants/fields';
-import { FilterItemProps, Item } from './FilterItem.types';
+import type { FilterItemProps, Item } from './FilterItem.types';
 
 const selectStyles: StylesConfig = {
   control: (base) => ({
@@ -246,14 +246,12 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
   const isCurrency = selectedColumn?.form_field_type === TYPE_CURRENCY_FIELD;
 
   return (
-    <div className="flex flex-row gap-2 items-center">
-      <div
-        className={`flex-1 ${isCurrency ? 'flex flex-row gap-2 justify-between' : ''}`}
-      >
+    <div className='flex flex-row gap-2 items-center'>
+      <div className={`flex-1 ${isCurrency ? 'flex flex-row gap-2 justify-between' : ''}`}>
         <Select options={fieldOptions} value={selectedColumnOption} onChange={handleColumnChange} />
       </div>
 
-      <div className="flex-1">
+      <div className='flex-1'>
         <Select
           isClearable={false}
           options={operatorOptions}
@@ -262,7 +260,7 @@ const FilterItem: FC<FilterItemProps> = ({ data, item, onItemChange }) => {
         />
       </div>
 
-      <div className="flex-[1.5] flex gap-2">{renderValueInput()}</div>
+      <div className='flex-[1.5] flex gap-2'>{renderValueInput()}</div>
     </div>
   );
 };

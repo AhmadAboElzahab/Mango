@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useAuthStore } from 'store/auth.store';
-import { LoginValues } from 'types/auth';
+import type { LoginValues } from 'types/auth';
 export const httpClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true, // ✅ this is critical for CORS

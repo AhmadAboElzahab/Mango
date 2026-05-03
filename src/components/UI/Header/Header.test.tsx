@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 import Header from './Header';
-import { type HeaderProps } from './Header.types';
+import type { HeaderProps } from './Header.types';
 
 vi.mock('./Header.styles', () => ({
   HeaderWrapper: ({ children }: { children: React.ReactNode }) => (

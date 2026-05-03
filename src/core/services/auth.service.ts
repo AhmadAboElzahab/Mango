@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import type { AxiosError } from 'axios';
 import { useAuth } from 'hooks/useAuth';
 
-import { login, LoginDto, LoginResponse } from './api.service';
+import { type LoginDto, type LoginResponse, login } from './api.service';
 
 export function useLoginMutation() {
   const { login: loginFn } = useAuth();

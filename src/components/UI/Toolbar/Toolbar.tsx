@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import ColumnsManagment from '../ColumnsManagment/ColumnsManagment.tsx';
 import Search from '../Search/Search.tsx';
-import { ToolbarProps } from './Toolbar.types';
+import type { ToolbarProps } from './Toolbar.types';
 
 const Toolbar: FC<ToolbarProps> = (props) => {
   return (

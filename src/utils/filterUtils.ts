@@ -1,5 +1,5 @@
-import { Group } from 'components/Filters/AdvancedFilter/AdvancedFilter.types';
-import { Item } from 'components/Filters/FilterItem/FilterItem.types';
+import type { Group } from 'components/Filters/AdvancedFilter/AdvancedFilter.types';
+import type { Item } from 'components/Filters/FilterItem/FilterItem.types';
 import { BACKGROUND_COLORS } from 'constants/global';
 import { nanoid } from 'nanoid';
 

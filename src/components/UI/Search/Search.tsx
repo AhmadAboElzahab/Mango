@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import type React from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Icon } from '../Icon/Icon.tsx';
-import { SearchProps } from './Search.types';
+import type { SearchProps } from './Search.types';
 
 const Search: React.FC<SearchProps> = ({ onSearch, searchValue = '' }) => {
   const [localValue, setLocalValue] = useState(searchValue);

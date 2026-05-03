@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { FormField, TabsResponse,UserTab } from 'types/tabs'; // Adjust path if needed
+import type { FormField, TabsResponse, UserTab } from 'types/tabs'; // Adjust path if needed
 
 import { httpClient } from './api.service';
 

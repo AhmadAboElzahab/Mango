@@ -1,11 +1,11 @@
 import { Link } from '@tanstack/react-router';
 import Button from 'components/Input/Button';
-import React from 'react';
+import type React from 'react';
 
-import { HeaderProps } from './Header.types';
+import type { HeaderProps } from './Header.types';
 
 const Header: React.FC<HeaderProps> = ({ Links, onLogout }) => (
-  <div className="flex items-center justify-between flex-row gap-2 h-14 pr-4 pl-5">
+  <div className='flex items-center justify-between flex-row gap-2 h-14 pr-4 pl-5'>
     <div style={{ display: 'flex', alignItems: 'center', columnGap: '0.5rem' }}>
       <p
         style={{
@@ -17,7 +17,7 @@ const Header: React.FC<HeaderProps> = ({ Links, onLogout }) => (
         logo
       </p>
       {Links.map((link: { to: string; label: string }, index: number) => (
-        <Link key={index} to={link.to} className="nav-link">
+        <Link key={index} to={link.to} className='nav-link'>
           {link.label}
         </Link>
       ))}

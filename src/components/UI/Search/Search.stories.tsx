@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import Search from "./Search";
+import Search from './Search';
 
 const meta: Meta<typeof Search> = {
-  title: "UI/Search",
+  title: 'UI/Search',
   component: Search,
 };
 

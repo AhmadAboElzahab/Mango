@@ -1,4 +1,4 @@
-import { UserTab } from 'types/tabs';
+import type { UserTab } from 'types/tabs';
 
 export interface TabsBarProps {
   tabs: UserTab[];

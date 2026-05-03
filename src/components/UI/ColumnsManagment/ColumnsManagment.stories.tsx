@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import ColumnsManagment from "./ColumnsManagment";
+import ColumnsManagment from './ColumnsManagment';
 
 const meta: Meta<typeof ColumnsManagment> = {
-  title: "UI/ColumnsManagment",
+  title: 'UI/ColumnsManagment',
   component: ColumnsManagment,
 };
 

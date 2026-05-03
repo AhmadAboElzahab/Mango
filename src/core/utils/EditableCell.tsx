@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Select from 'react-select';
-import { FormField } from 'types/tabs';
+import type { FormField } from 'types/tabs';
 
 interface SelectOption {
   value: string | number;
@@ -63,11 +63,7 @@ const EditableCell = ({ initialValue, field, rowIndex, updateRow }: EditableCell
   }
 
   return (
-    <input
-      value={String(value ?? '')}
-      onChange={(e) => setValue(e.target.value)}
-      onBlur={onBlur}
-    />
+    <input value={String(value ?? '')} onChange={(e) => setValue(e.target.value)} onBlur={onBlur} />
   );
 };
 

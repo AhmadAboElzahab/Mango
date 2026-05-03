@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from 'react';
 
-import { IconProps } from './Icon.types';
+import type { IconProps } from './Icon.types';
 
 export const Icon: React.FC<IconProps> = (props) => {
   return (

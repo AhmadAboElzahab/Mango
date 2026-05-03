@@ -1,10 +1,10 @@
 import { Icon } from 'components/UI/Icon/Icon';
 import { Popup } from 'components/UI/Popup';
 import { useAdvancedFilter } from 'hooks/useAdvancedFilters';
-import React, { useMemo, useState } from 'react';
-
+import type React from 'react';
+import { useMemo, useState } from 'react';
+import type { AdvancedFilterProps } from './AdvancedFilter.types';
 import SortableGroup from './components/SortableGroup';
-import { AdvancedFilterProps } from './AdvancedFilter.types';
 
 const AdvancedFilter: React.FC<AdvancedFilterProps> = ({ dataState, value, handleChange }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +35,7 @@ const AdvancedFilter: React.FC<AdvancedFilterProps> = ({ dataState, value, handl
       onClick={togglePopup}
     >
       <Icon name='FunnelSimple' width={16} height={16} />
-      <span className="ml-1 text-[13px] text-[#1d1f24] font-normal">Filter</span>
+      <span className='ml-1 text-[13px] text-[#1d1f24] font-normal'>Filter</span>
       <Popup isOpen={isOpen} onClose={closePopup}>
         <div
           className={`relative ${hasChildren ? 'w-[70vw]' : 'w-fit'}`}

@@ -1,4 +1,4 @@
-import { FormField, TabsResponse, UserTab } from 'types/tabs';
+import type { FormField, TabsResponse, UserTab } from 'types/tabs';
 
 export interface DataContainerProps {
   model: string;

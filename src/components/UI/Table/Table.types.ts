@@ -1,4 +1,4 @@
-import { FormField, UserTabColumn } from 'types/tabs';
+import type { FormField, UserTabColumn } from 'types/tabs';
 
 export interface TableProps {
   data: any[];

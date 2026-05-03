@@ -1,4 +1,4 @@
-import { Item } from 'components/Filters/FilterItem/FilterItem.types';
+import type { Item } from 'components/Filters/FilterItem/FilterItem.types';
 
 import {
   TYPE_CREATABLE_MULTI_SELECT,

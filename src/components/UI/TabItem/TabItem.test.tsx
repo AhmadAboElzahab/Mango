@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import TabItem from './TabItem';
-import { type TabItemProps } from './TabItem.types';
+import type { TabItemProps } from './TabItem.types';
 
 describe('TabItem', () => {
   const setup = (props?: Partial<TabItemProps>) => {

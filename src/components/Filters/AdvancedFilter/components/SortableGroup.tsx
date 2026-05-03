@@ -1,12 +1,13 @@
 import FilterItem from 'components/Filters/FilterItem';
 import { CONJUNCTION_OPTIONS, MAX_NESTING_LEVEL } from 'constants/global';
-import React, { useCallback,useState } from 'react';
+import type React from 'react';
+import { useCallback, useState } from 'react';
 import ClickAwayListener from 'react-click-away-listener';
 import Select from 'react-select';
-import { MoveEvent, ReactSortable } from 'react-sortablejs';
+import { type MoveEvent, ReactSortable } from 'react-sortablejs';
 import { getBackgroundColor } from 'utils/filterUtils';
 
-import { Group, Item } from '../AdvancedFilter.types';
+import type { Group, Item } from '../AdvancedFilter.types';
 import AddMenu from './AddMenu';
 
 export interface SortableGroupProps {

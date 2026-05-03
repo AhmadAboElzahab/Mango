@@ -1,7 +1,7 @@
-import { Group } from 'components/Filters/AdvancedFilter/AdvancedFilter.types';
-import { Item } from 'components/Filters/FilterItem/FilterItem.types';
+import type { Group } from 'components/Filters/AdvancedFilter/AdvancedFilter.types';
+import type { Item } from 'components/Filters/FilterItem/FilterItem.types';
 import { MAX_NESTING_LEVEL } from 'constants/global';
-import { useCallback,useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   createNewGroup,
   createNewItem,

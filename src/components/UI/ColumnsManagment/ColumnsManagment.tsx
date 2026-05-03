@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 
 import { Icon } from '../Icon/Icon';
 import { Popup } from '../Popup/Popup';
@@ -24,7 +25,7 @@ const ColumnsManagment: React.FC<ColumnsManagmentProps> = ({ columns, onToggleCo
 
   return (
     <div
-      className={`relative flex flex-row cursor-pointer rounded-[3px] px-2 py-1 h-fit transition-[background-color] duration-85 ease-in ${
+      className={`relative items-center justify-center flex flex-row cursor-pointer rounded-[3px] px-2 py-1 h-fit transition-[background-color] duration-85 ease-in ${
         isOpen
           ? 'bg-[#cff5d1] hover:bg-transparent hover:shadow-[inset_0_0_0_2px_rgba(0,0,0,0.1)]'
           : 'hover:bg-black/5'
@@ -32,7 +33,7 @@ const ColumnsManagment: React.FC<ColumnsManagmentProps> = ({ columns, onToggleCo
       onClick={togglePopup}
     >
       <Icon name='Eye' width={16} height={16} fill='#1d1f24' />
-      <span className="ml-1 text-[13px] text-[#1d1f24] font-normal">Columns</span>
+      <span className='ml-1 text-[13px] text-[#1d1f24] font-normal'>Columns</span>
 
       <Popup isOpen={isOpen} onClose={closePopup}>
         <div style={{ padding: '12px', minWidth: '220px', maxHeight: '300px', overflowY: 'auto' }}>

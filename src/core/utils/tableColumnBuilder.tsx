@@ -1,5 +1,5 @@
-import { ColumnDef } from '@tanstack/react-table';
-import { FormField, UserTabColumn } from 'types/tabs';
+import type { ColumnDef } from '@tanstack/react-table';
+import type { FormField, UserTabColumn } from 'types/tabs';
 
 import EditableCell from './EditableCell';
 

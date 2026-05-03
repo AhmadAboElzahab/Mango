@@ -1,4 +1,4 @@
-import { Group } from 'components/Filters/AdvancedFilter/AdvancedFilter.types';
+import type { Group } from 'components/Filters/AdvancedFilter/AdvancedFilter.types';
 
 export interface ToolbarProps {
   columns: any[];

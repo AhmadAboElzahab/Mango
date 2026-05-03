@@ -23,9 +23,33 @@ vi.mock('../TabItem', () => ({
 }));
 
 const mockTabs = [
-  { id: 1, tab_name: 'Tab 1', model_name: '', is_default: true, search_term: '', filters: {}, columns: [] },
-  { id: 2, tab_name: 'Tab 2', model_name: '', is_default: false, search_term: '', filters: {}, columns: [] },
-  { id: 3, tab_name: 'Tab 3', model_name: '', is_default: false, search_term: '', filters: {}, columns: [] },
+  {
+    id: 1,
+    tab_name: 'Tab 1',
+    model_name: '',
+    is_default: true,
+    search_term: '',
+    filters: {},
+    columns: [],
+  },
+  {
+    id: 2,
+    tab_name: 'Tab 2',
+    model_name: '',
+    is_default: false,
+    search_term: '',
+    filters: {},
+    columns: [],
+  },
+  {
+    id: 3,
+    tab_name: 'Tab 3',
+    model_name: '',
+    is_default: false,
+    search_term: '',
+    filters: {},
+    columns: [],
+  },
 ];
 
 describe('TabsBar', () => {

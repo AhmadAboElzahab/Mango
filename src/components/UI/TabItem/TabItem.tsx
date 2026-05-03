@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from 'react';
 
-import { TabItemProps } from './TabItem.types.ts';
+import type { TabItemProps } from './TabItem.types.ts';
 
 const TabItem: React.FC<TabItemProps> = ({ active = false, title = '', onClick }) => {
   return (
@@ -13,7 +13,7 @@ const TabItem: React.FC<TabItemProps> = ({ active = false, title = '', onClick }
         {title}
       </span>
       {active && (
-        <span className="flex items-center text-[13px] text-black font-medium capitalize">↓</span>
+        <span className='flex items-center text-[13px] text-black font-medium capitalize'>↓</span>
       )}
     </div>
   );

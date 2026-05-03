@@ -1,4 +1,4 @@
-import { Column } from 'types/formfields';
+import type { Column } from 'types/formfields';
 
 export interface FilterItemProps {
   data: Column[];

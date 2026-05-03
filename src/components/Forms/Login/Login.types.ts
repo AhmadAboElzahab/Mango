@@ -1,4 +1,4 @@
-import { LoginValues } from 'types/auth';
+import type { LoginValues } from 'types/auth';
 
 export interface LoginFormProps {
   onSubmit: (values: LoginValues) => void;

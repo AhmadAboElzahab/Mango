@@ -11,15 +11,15 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root';
-import { Route as AboutImport } from './routes/about';
-import { Route as AuthRouteImport } from './routes/auth/route';
+import { Route as DataDriversIndexImport } from './routes/_data/drivers/index';
+import { Route as DataMaidsIndexImport } from './routes/_data/maids/index';
+import { Route as DataNaniesIndexImport } from './routes/_data/nanies/index';
 import { Route as DataRouteImport } from './routes/_data/route';
-import { Route as IndexImport } from './routes/index';
+import { Route as AboutImport } from './routes/about';
 import { Route as AuthIndexImport } from './routes/auth/index';
 import { Route as AuthLoginImport } from './routes/auth/login';
-import { Route as DataNaniesIndexImport } from './routes/_data/nanies/index';
-import { Route as DataMaidsIndexImport } from './routes/_data/maids/index';
-import { Route as DataDriversIndexImport } from './routes/_data/drivers/index';
+import { Route as AuthRouteImport } from './routes/auth/route';
+import { Route as IndexImport } from './routes/index';
 
 // Create/Update Routes
 

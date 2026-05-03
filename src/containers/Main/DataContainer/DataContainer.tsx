@@ -1,11 +1,12 @@
-import { OnChangeFn } from '@tanstack/react-table';
+import type { OnChangeFn } from '@tanstack/react-table';
 import Table from 'components/UI/Table';
 import TabsBar from 'components/UI/TabsBar';
 import Toolbar from 'components/UI/Toolbar';
 import { PAGE_SIZE, usePaginatedModelIndex } from 'core/services/data.service';
 import { debounce } from 'lodash';
 import { nanoid } from 'nanoid';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import type React from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { UserTab } from 'types/tabs';
 
 import type { DataContainerProps } from './DataContainer.types';

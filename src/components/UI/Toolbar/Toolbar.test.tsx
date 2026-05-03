@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
+import type { Group } from 'components/Filters/AdvancedFilter/AdvancedFilter.types';
 import { describe, it, vi } from 'vitest';
-import { Group } from 'components/Filters/AdvancedFilter/AdvancedFilter.types';
 
 import Toolbar from './Toolbar';
 
@@ -13,7 +13,7 @@ describe('Toolbar', () => {
         columns={[]}
         onToggleColumn={vi.fn()}
         onSearch={vi.fn()}
-        searchValue=""
+        searchValue=''
         setFilters={vi.fn()}
         filters={emptyGroup}
       />,

@@ -1,8 +1,8 @@
-import { AnyFieldApi, useForm } from '@tanstack/react-form';
-import React from 'react';
+import { type AnyFieldApi, useForm } from '@tanstack/react-form';
+import type React from 'react';
 import { loginSchema } from 'types/auth';
 
-import { LoginFormProps } from './Login.types';
+import type { LoginFormProps } from './Login.types';
 
 function FieldInfo({ field }: { field: AnyFieldApi }) {
   return (
@@ -34,7 +34,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 
   return (
     <form
-      className="flex flex-col max-w-100 gap-4 mx-auto p-8 bg-[#f9f9f9] rounded-lg"
+      className='flex flex-col max-w-100 gap-4 mx-auto p-8 bg-[#f9f9f9] rounded-lg'
       onSubmit={(e) => {
         e.preventDefault();
         form.handleSubmit();
@@ -42,8 +42,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
     >
       <form.Field name='email'>
         {(field) => (
-          <div className="flex flex-col">
-            <label htmlFor={field.name} className="ml-1 text-[13px] text-[#1d1f24] font-normal">
+          <div className='flex flex-col'>
+            <label htmlFor={field.name} className='ml-1 text-[13px] text-[#1d1f24] font-normal'>
               Email
             </label>
             <input
@@ -55,7 +55,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 field.handleChange(e.target.value)
               }
-              className="px-[0.8rem] py-[0.6rem] text-base border border-[#ccc] rounded focus:border-[#0070f3] focus:outline-none"
+              className='px-[0.8rem] py-[0.6rem] text-base border border-[#ccc] rounded focus:border-[#0070f3] focus:outline-none'
             />
             <FieldInfo field={field} />
           </div>
@@ -63,8 +63,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
       </form.Field>
       <form.Field name='password'>
         {(field) => (
-          <div className="flex flex-col">
-            <label htmlFor={field.name} className="ml-1 text-[13px] text-[#1d1f24] font-normal">
+          <div className='flex flex-col'>
+            <label htmlFor={field.name} className='ml-1 text-[13px] text-[#1d1f24] font-normal'>
               Password
             </label>
             <input
@@ -76,7 +76,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 field.handleChange(e.target.value)
               }
-              className="px-[0.8rem] py-[0.6rem] text-base border border-[#ccc] rounded focus:border-[#0070f3] focus:outline-none"
+              className='px-[0.8rem] py-[0.6rem] text-base border border-[#ccc] rounded focus:border-[#0070f3] focus:outline-none'
             />
             <FieldInfo field={field} />
           </div>
@@ -86,7 +86,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
       <button
         type='submit'
         disabled={form.state.isSubmitting}
-        className="py-3 text-base bg-[#0070f3] text-white border-none rounded cursor-pointer disabled:bg-[#ccc] disabled:cursor-not-allowed"
+        className='py-3 text-base bg-[#0070f3] text-white border-none rounded cursor-pointer disabled:bg-[#ccc] disabled:cursor-not-allowed'
       >
         Login
       </button>

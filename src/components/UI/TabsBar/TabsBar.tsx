@@ -1,11 +1,11 @@
-import React from 'react';
+import type React from 'react';
 
 import TabItem from '../TabItem';
-import { TabsBarProps } from './TabsBar.types.ts';
+import type { TabsBarProps } from './TabsBar.types.ts';
 
 const TabsBar: React.FC<TabsBarProps> = ({ tabs, activeTab, onTabChange }) => {
   return (
-    <div className="tabs-bar bg-black/10 transition-[width] duration-300 ease-in-out flex flex-row h-8 rounded-tr-md relative pl-3">
+    <div className='tabs-bar bg-black/10 transition-[width] duration-300 ease-in-out flex flex-row h-8 rounded-tr-md relative pl-3'>
       {tabs.map((tab) => (
         <TabItem
           key={tab.id}

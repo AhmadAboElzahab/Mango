@@ -1,1 +1,1 @@
-export { default } from "./ColumnsManagment";
+export { default } from './ColumnsManagment';
