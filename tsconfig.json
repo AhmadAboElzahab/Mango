@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
     "paths": {
-      "@shared-types/*": ["./shared/types/*"],
-      "components/*": ["./components/*"],
-      "constants/*": ["./constants/*"],
-      "containers/*": ["./containers/*"],
-      "core/*": ["./core/*"],
-      "hooks/*": ["./hooks/*"],
-      "store/*": ["./store/*"],
-      "types/*": ["./types/*"],
-      "utils/*": ["./utils/*"]
+      "*": ["./src/*"],
+      "@shared-types/*": ["./src/shared/types/*"],
+      "components/*": ["./src/components/*"],
+      "constants/*": ["./src/constants/*"],
+      "containers/*": ["./src/containers/*"],
+      "core/*": ["./src/core/*"],
+      "hooks/*": ["./src/hooks/*"],
+      "store/*": ["./src/store/*"],
+      "types/*": ["./src/types/*"],
+      "utils/*": ["./src/utils/*"]
     },
     "types": ["vitest/globals"]
   },
